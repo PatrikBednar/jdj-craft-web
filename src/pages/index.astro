@@ -12,6 +12,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;600;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <style>
+      @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-100%); }
+      }
+      .animate-marquee {
+        animation: marquee 20s linear infinite;
+      }
+
+      #mobile-menu {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
+      }
+      #mobile-menu.menu-open {
+        max-height: 250px; /* Dostatečná výška pro obsah menu */
+        opacity: 1;
+      }
+    </style>
   </head>
   
   <body class="bg-brand-black text-gray-100 font-body antialiased selection:bg-brand-brick selection:text-white">
@@ -35,15 +55,6 @@
               <a href="#realizace" class="hover:text-brand-brick transition-colors duration-300">Realizace</a>
               <a href="#recenze" class="hover:text-brand-brick transition-colors duration-300">Recenze</a>
 
-              <div class="flex items-center gap-5 pl-4 border-l border-white/10">
-                <a href="https://www.facebook.com/josef.jahoda.161" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
-                </a>
-                <a href="https://www.instagram.com/jdj_craft/" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.6 14.8c-.4.4-.9.6-1.4.6h-6.4c-.5 0-1-.2-1.4-.6-.4-.4-.6-.9-.6-1.4V8.6c0-.5.2-1 .6-1.4.4-.4.9-.6 1.4-.6h6.4c.5 0 1 .2 1.4.6.4.4.6.9.6 1.4v6.4c0 .5-.2 1-.6 1.4z"/><path d="M12 9.3c-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7-1.2-2.7-2.7-2.7zm0 4.4c-.9 0-1.7-.8-1.7-1.7s.8-1.7 1.7-1.7 1.7.8 1.7 1.7-.8 1.7-1.7 1.7zm3.1-5.2c-.3 0-.5.2-.5.5s.2.5.5.5.5-.2.5-.5-.2-.5-.5-.5z"/></svg>
-                </a>
-              </div>
-
               <a href="#kontakt" class="bg-brand-brick hover:bg-brand-brick-dark text-white px-5 py-2 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 ml-0!">
                 Kontakt
               </a>
@@ -59,12 +70,12 @@
         </div>
       </div>
 
-      <div id="mobile-menu" class="hidden md:hidden bg-brand-gray border-b border-white/10">
+      <div id="mobile-menu" class="md:hidden bg-brand-gray border-b border-white/10">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading uppercase">
-          <a href="#sluzby" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Služby</a>
-          <a href="#realizace" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Realizace</a>
-          <a href="#recenze" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Recenze</a>
-          <a href="#kontakt" class="text-brand-brick hover:text-white block px-3 py-2 rounded-md text-base font-bold">Kontaktovat</a>
+          <a href="#sluzby" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium text-center">Služby</a>
+          <a href="#realizace" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium text-center">Realizace</a>
+          <a href="#recenze" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium text-center">Recenze</a>
+          <a href="#kontakt" class="text-brand-brick hover:text-white block px-3 py-2 rounded-md text-base font-bold text-center">Kontaktovat</a>
         </div>
       </div>
     </nav>
@@ -81,7 +92,7 @@
 
       <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16 animate-fade-in-up">
         <p class="text-brand-brick font-heading font-bold tracking-[0.2em] uppercase mb-4">
-          Od roku 2025
+          <!--Od roku 2025-->
         </p>
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white uppercase leading-tight mb-8 drop-shadow-2xl">
           Stavíme domy <br />
@@ -194,24 +205,28 @@
         </div>
     </section>
 
-    <div class="bg-brand-brick py-12 border-y border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">15+</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span>
+    <div class="bg-brand-brick py-12 border-y border-white/10 overflow-hidden">
+        <div class="md:max-w-7xl md:mx-auto md:px-4 sm:px-6 lg:px-8 md:overflow-visible">
+            <div class="md:grid md:grid-cols-4 md:gap-8 md:text-center md:divide-x md:divide-white/20">
+                <!-- Mobile: Marquee -->
+                <div class="flex animate-marquee whitespace-nowrap md:hidden">
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">5+</span><span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span></div>
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">20+</span><span class="text-white/80 text-sm uppercase tracking-wider">Projektů</span></div>
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">100%</span><span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span></div>
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">1</span><span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span></div>
+                    <!-- Duplicated for infinite effect -->
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">5+</span><span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span></div>
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">20+</span><span class="text-white/80 text-sm uppercase tracking-wider">Projektů</span></div>
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">100%</span><span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span></div>
+                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">1</span><span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span></div>
                 </div>
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">50+</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Rodinných domů</span>
-                </div>
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">100%</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span>
-                </div>
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">1</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span>
+
+                <!-- Desktop: Static Grid -->
+                <div class="hidden md:contents">
+                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">5+</span><span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span></div>
+                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">20+</span><span class="text-white/80 text-sm uppercase tracking-wider">Projektů</span></div>
+                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">100%</span><span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span></div>
+                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">1</span><span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span></div>
                 </div>
             </div>
         </div>
@@ -394,11 +409,20 @@
                                 <a href="mailto:jdj-craft@seznam.cz" class="text-2xl font-heading font-bold text-white hover:text-brand-brick transition-colors">jdj-craft@seznam.cz</a>
                             </div>
                         </div>
-                        
+
                         <div class="pt-8">
                              <h4 class="text-white font-heading font-bold uppercase mb-2">Sídlo firmy</h4>
                              <p class="text-gray-400">JDJ-CRAFT s.r.o.<br>Tichov 130<br>766 01 Tichov</p>
                              <p class="text-gray-500 text-sm mt-2">IČO: 22461990</p>
+                        </div>
+
+                        <div class="flex items-center gap-5 pt-8">
+                            <a href="https://www.facebook.com/josef.jahoda.161" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                            </a>
+                            <a href="https://www.instagram.com/jdj_craft/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.6 14.8c-.4.4-.9.6-1.4.6h-6.4c-.5 0-1-.2-1.4-.6-.4-.4-.6-.9-.6-1.4V8.6c0-.5.2-1 .6-1.4.4-.4.9-.6 1.4-.6h6.4c.5 0 1 .2 1.4.6.4.4.6.9.6 1.4v6.4c0 .5-.2 1-.6 1.4z"/><path d="M12 9.3c-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7-1.2-2.7-2.7-2.7zm0 4.4c-.9 0-1.7-.8-1.7-1.7s.8-1.7 1.7-1.7 1.7.8 1.7 1.7-.8 1.7-1.7 1.7zm3.1-5.2c-.3 0-.5.2-.5.5s.2.5.5.5.5-.2.5-.5-.2-.5-.5-.5z"/></svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -446,8 +470,14 @@
         // Podmínka pro bezpečné spuštění
         if (btn && menu) {
             btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
+                menu.classList.toggle('menu-open');
             });
+
+            window.addEventListener('scroll', () => {
+                if (menu.classList.contains('menu-open')) {
+                    menu.classList.remove('menu-open');
+                }
+            }, { passive: true });
         }
 
         const yearEl = document.getElementById('copyright-year');
