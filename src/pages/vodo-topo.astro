@@ -1,5 +1,13 @@
 ---
 // src/pages/vodo-topo.astro
+
+import { Image } from 'astro:assets';
+
+// Importy fotek
+import heroImg from '../assets/vodo-topo/vodo-topo1.webp';
+import galleryImg2 from '../assets/vodo-topo/vodo-topo2.webp';
+import galleryImg3 from '../assets/vodo-topo/vodo-topo3.webp';
+import galleryImg4 from '../assets/vodo-topo/vodo-topo4.webp';
 ---
 
 <html lang="cs" class="scroll-smooth">
@@ -22,30 +30,19 @@
           
           <a href="/" class="flex items-end gap-5 group">
              <div class="flex gap-[5px] h-[48px] items-end"> 
-                <div class="w-[13px] h-[48px] bg-white group-hover:bg-brand-brick transition-colors duration-300"></div>
-                <div class="w-[13px] h-[38px] bg-white group-hover:bg-brand-brick transition-colors duration-300 delay-75"></div>
-                <div class="w-[13px] h-[48px] bg-white group-hover:bg-brand-brick transition-colors duration-300 delay-150"></div>
+                <div class="w-[13px] h-[48px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300"></div>
+                <div class="w-[13px] h-[38px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300 delay-75"></div>
+                <div class="w-[13px] h-[48px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300 delay-150"></div>
              </div>
              <span class="font-['Montserrat'] font-black text-2xl text-white leading-none pb-1 tracking-tight">JDJ-CRAFT</span>
           </a>
 
           <div class="hidden md:block">
-            <div class="ml-10 flex items-center space-x-8 font-heading uppercase tracking-wide text-sm">
-              <a href="/" class="hover:text-brand-brick transition-colors duration-300">Domů</a>
+            <div class="ml-10 flex items-baseline space-x-8 font-heading uppercase tracking-wide text-sm">
+              <a href="/" class="text-brand-brick hover:text-white transition-colors duration-300">Domů</a>
               <a href="/#sluzby" class="hover:text-brand-brick transition-colors duration-300">Služby</a>
               <a href="/#realizace" class="hover:text-brand-brick transition-colors duration-300">Realizace</a>
-              <a href="/#recenze" class="hover:text-brand-brick transition-colors duration-300">Recenze</a>
-
-              <div class="flex items-center gap-5 pl-4 border-l border-white/10">
-                <a href="https://www.facebook.com/josef.jahoda.161" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path></svg>
-                </a>
-                <a href="https://www.instagram.com/jdj_craft/" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.6 14.8c-.4.4-.9.6-1.4.6h-6.4c-.5 0-1-.2-1.4-.6-.4-.4-.6-.9-.6-1.4V8.6c0-.5.2-1 .6-1.4.4-.4.9-.6 1.4-.6h6.4c.5 0 1 .2 1.4.6.4.4.6.9.6 1.4v6.4c0 .5-.2 1-.6 1.4z"></path><path d="M12 9.3c-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7-1.2-2.7-2.7-2.7zm0 4.4c-.9 0-1.7-.8-1.7-1.7s.8-1.7 1.7-1.7 1.7.8 1.7 1.7-.8 1.7-1.7 1.7zm3.1-5.2c-.3 0-.5.2-.5.5s.2.5.5.5.5-.2.5-.5-.2-.5-.5-.5z"></path></svg>
-                </a>
-              </div>
-
-              <a href="#kontakt" class="bg-brand-brick hover:bg-brand-brick-dark text-white px-5 py-2 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 ml-0!">
+              <a href="#kontakt" class="bg-brand-brick hover:bg-brand-brick-dark text-white px-5 py-2 rounded-sm transition-colors duration-300 transform hover:-translate-y-0.5">
                 Kontakt
               </a>
             </div>
@@ -62,9 +59,8 @@
 
       <div id="mobile-menu" class="hidden md:hidden bg-brand-gray border-b border-white/10">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading uppercase">
-          <a href="/" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Domů</a>
+          <a href="/" class="text-brand-brick hover:text-white block px-3 py-2 rounded-md text-base font-medium">Domů</a>
           <a href="/#sluzby" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Služby</a>
-          <a href="/#realizace" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Realizace</a>
           <a href="#kontakt" class="text-white block px-3 py-2 rounded-md text-base font-bold">Kontaktovat</a>
         </div>
       </div>
@@ -72,10 +68,11 @@
 
     <header class="relative h-[60vh] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 z-0">
-        <img 
-            src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?q=80&w=2070&auto=format&fit=crop" 
-            alt="Vodo Topo instalace" 
+        <Image 
+            src={heroImg} 
+            alt="Vodo Topo instalace - detail" 
             class="w-full h-full object-cover"
+            loading="eager"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/80 to-brand-black/40"></div>
       </div>
@@ -162,51 +159,44 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-heading font-bold text-white uppercase mb-12 text-center">Ukázky z realizací</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1507646227500-4d389b0012be?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Instalace podlahového topení" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Podlahové topení</span>
+            <div class="columns-1 md:columns-2 gap-6 space-y-6">
+                
+                <div class="group relative rounded-sm overflow-hidden cursor-pointer break-inside-avoid">
+                    <Image src={heroImg} 
+                         alt="Realizace Vodo Topo 1" 
+                         class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Detail realizace</span>
                     </div>
                 </div>
 
-                <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1605630353382-7e7dd782298e?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Rozvody vody v plastu" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Rozvody vody</span>
+                <div class="group relative rounded-sm overflow-hidden cursor-pointer break-inside-avoid">
+                    <Image src={galleryImg2} 
+                         alt="Realizace Vodo Topo 2" 
+                         class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Detail realizace</span>
                     </div>
                 </div>
 
-                <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1585232004423-244e0e6904e3?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Tepelné čerpadlo" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Technická místnost</span>
+                <div class="group relative rounded-sm overflow-hidden cursor-pointer break-inside-avoid">
+                    <Image src={galleryImg3} 
+                         alt="Realizace Vodo Topo 3" 
+                         class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Detail realizace</span>
                     </div>
                 </div>
 
-                 <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer lg:col-span-2">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Detail koupelny" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Kompletace sanity</span>
+                 <div class="group relative rounded-sm overflow-hidden cursor-pointer break-inside-avoid">
+                    <Image src={galleryImg4} 
+                         alt="Realizace Vodo Topo 4" 
+                         class="w-full h-auto transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Detail realizace</span>
                     </div>
                 </div>
 
-                 <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Detail práce" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-brand-brick pb-1">Detail práce</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

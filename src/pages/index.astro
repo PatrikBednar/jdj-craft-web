@@ -1,5 +1,14 @@
 ---
 // src/pages/index.astro
+
+// 1. Import nástroje pro obrázky
+import { Image } from 'astro:assets';
+
+// 2. Import vašich fotek ze složky
+import domyImg from '../assets/mainpage/domy-na-klic.jpg';
+import vodoImg from '../assets/mainpage/vodo-topo.jpg';
+import elektroImg from '../assets/mainpage/elektro.jpg';
+import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
 ---
 
 <html lang="cs" class="scroll-smooth">
@@ -12,26 +21,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;600;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    <style>
-      @keyframes marquee {
-        0% { transform: translateX(0%); }
-        100% { transform: translateX(-100%); }
-      }
-      .animate-marquee {
-        animation: marquee 20s linear infinite;
-      }
-
-      #mobile-menu {
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
-      }
-      #mobile-menu.menu-open {
-        max-height: 250px; /* Dostatečná výška pro obsah menu */
-        opacity: 1;
-      }
-    </style>
   </head>
   
   <body class="bg-brand-black text-gray-100 font-body antialiased selection:bg-brand-brick selection:text-white">
@@ -42,20 +31,19 @@
           
           <a href="#" class="flex items-end gap-5 group">
              <div class="flex gap-[5px] h-[48px] items-end"> 
-                <div class="w-[13px] h-[48px] bg-white group-hover:bg-brand-brick transition-colors duration-300"></div>
-                <div class="w-[13px] h-[38px] bg-white group-hover:bg-brand-brick transition-colors duration-300 delay-75"></div>
-                <div class="w-[13px] h-[48px] bg-white group-hover:bg-brand-brick transition-colors duration-300 delay-150"></div>
+                <div class="w-[13px] h-[48px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300"></div>
+                <div class="w-[13px] h-[38px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300 delay-75"></div>
+                <div class="w-[13px] h-[48px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300 delay-150"></div>
              </div>
              <span class="font-['Montserrat'] font-black text-2xl text-white leading-none pb-1 tracking-tight">JDJ-CRAFT</span>
           </a>
 
           <div class="hidden md:block">
-            <div class="ml-10 flex items-center space-x-8 font-heading uppercase tracking-wide text-sm">
-              <a href="#sluzby" class="hover:text-brand-brick transition-colors duration-300">Služby</a>
+            <div class="ml-10 flex items-baseline space-x-8 font-heading uppercase tracking-wide text-sm">
+              <a href="#sluzby" class="hover:text-brand-brick transition-colors duration-300 pb-0.5 hover:border-b-2 hover:border-brand-brick">Služby</a>
               <a href="#realizace" class="hover:text-brand-brick transition-colors duration-300">Realizace</a>
               <a href="#recenze" class="hover:text-brand-brick transition-colors duration-300">Recenze</a>
-
-              <a href="#kontakt" class="bg-brand-brick hover:bg-brand-brick-dark text-white px-5 py-2 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 ml-0!">
+              <a href="#kontakt" class="bg-brand-brick hover:bg-brand-brick-dark text-white px-5 py-2 rounded-sm transition-colors duration-300 transform hover:-translate-y-0.5">
                 Kontakt
               </a>
             </div>
@@ -70,12 +58,12 @@
         </div>
       </div>
 
-      <div id="mobile-menu" class="md:hidden bg-brand-gray border-b border-white/10">
+      <div id="mobile-menu" class="hidden md:hidden bg-brand-gray border-b border-white/10">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading uppercase">
-          <a href="#sluzby" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium text-center">Služby</a>
-          <a href="#realizace" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium text-center">Realizace</a>
-          <a href="#recenze" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium text-center">Recenze</a>
-          <a href="#kontakt" class="text-brand-brick hover:text-white block px-3 py-2 rounded-md text-base font-bold text-center">Kontaktovat</a>
+          <a href="#sluzby" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Služby</a>
+          <a href="#realizace" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Realizace</a>
+          <a href="#recenze" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Recenze</a>
+          <a href="#kontakt" class="text-brand-brick hover:text-white block px-3 py-2 rounded-md text-base font-bold">Kontaktovat</a>
         </div>
       </div>
     </nav>
@@ -92,7 +80,7 @@
 
       <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16 animate-fade-in-up">
         <p class="text-brand-brick font-heading font-bold tracking-[0.2em] uppercase mb-4">
-          <!--Od roku 2025-->
+          Od roku 2025
         </p>
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white uppercase leading-tight mb-8 drop-shadow-2xl">
           Stavíme domy <br />
@@ -139,7 +127,11 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
                 
                 <a href="/hruba-stavba" class="group relative md:col-span-2 rounded-sm overflow-hidden bg-brand-gray border border-white/5 hover:border-brand-brick/50 transition-all duration-300 block">
-                    <img src="https://images.unsplash.com/photo-1621905252507-b35a83013b0b?q=80&w=2069&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Hrubá stavba" />
+                    <Image 
+                        src={domyImg} 
+                        alt="Hrubá stavba" 
+                        class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700 ease-out" 
+                    />
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <h3 class="text-2xl font-heading font-bold text-white uppercase mb-2">Hrubá stavba & Domy na klíč</h3>
@@ -153,15 +145,16 @@
                     </div>
                 </a>
 
-                <a href="/vodo-topo" class="group relative rounded-sm bg-brand-gray border border-white/5 p-8 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300 hover:border-brand-brick/30 block">
-                    <div class="w-12 h-12 bg-brand-brick/10 flex items-center justify-center rounded-sm text-brand-brick mb-4 group-hover:bg-brand-brick group-hover:text-white transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4 5-6.5 8-6.5 11.5a6.5 6.5 0 1 0 13 0c0-3.5-2.5-6.5-6.5-11.5z" />
-                        </svg>
-                    </div>
-                    <div class="flex flex-col h-full justify-end">
+                <a href="/vodo-topo" class="group relative rounded-sm overflow-hidden bg-brand-gray border border-white/5 hover:border-brand-brick/50 transition-all duration-300 block">
+                    <Image 
+                        src={vodoImg} 
+                        alt="Vodo Topo" 
+                        class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700 ease-out" 
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
                         <h3 class="text-xl font-heading font-bold text-white uppercase mb-2">Vodo & Topo</h3>
-                        <p class="text-gray-400 text-sm mb-4">Rozvody vody, odpady, topné systémy, podlahové vytápění i tepelná čerpadla.</p>
+                        <p class="text-gray-300 text-sm mb-4">Rozvody vody, odpady, topné systémy, podlahové vytápění i tepelná čerpadla.</p>
                         <span class="inline-flex items-center text-brand-brick font-heading font-bold text-xs uppercase tracking-wider group-hover:text-white transition-colors">
                             ZOBRAZIT VÍCE 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform">
@@ -171,13 +164,16 @@
                     </div>
                 </a>
 
-                <a href="/elektroinstalace" class="group relative rounded-sm bg-brand-gray border border-white/5 p-8 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300 hover:border-brand-brick/30 block">
-                    <div class="w-12 h-12 bg-brand-brick/10 flex items-center justify-center rounded-sm text-brand-brick mb-4 group-hover:bg-brand-brick group-hover:text-white transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
-                    </div>
-                    <div class="flex flex-col h-full justify-end">
+                <a href="/elektroinstalace" class="group relative rounded-sm overflow-hidden bg-brand-gray border border-white/5 hover:border-brand-brick/50 transition-all duration-300 block">
+                    <Image 
+                        src={elektroImg} 
+                        alt="Elektroinstalace" 
+                        class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700 ease-out" 
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
                         <h3 class="text-xl font-heading font-bold text-white uppercase mb-2">Elektroinstalace</h3>
-                        <p class="text-gray-400 text-sm mb-4">Silnoproud i slaboproud. Revize, přípojky, chytré domácnosti a osvětlení.</p>
+                        <p class="text-gray-300 text-sm mb-4">Silnoproud i slaboproud. Revize, přípojky, chytré domácnosti a osvětlení.</p>
                         <span class="inline-flex items-center text-brand-brick font-heading font-bold text-xs uppercase tracking-wider group-hover:text-white transition-colors">
                             ZOBRAZIT VÍCE 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform">
@@ -188,7 +184,11 @@
                 </a>
 
                 <a href="/zednicke-prace" class="group relative md:col-span-2 rounded-sm overflow-hidden bg-brand-gray border border-white/5 hover:border-brand-brick/50 transition-all duration-300 block">
-                     <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700 ease-out" alt="Obklady" />
+                     <Image 
+                        src={zednickeImg} 
+                        alt="Zednické práce" 
+                        class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700 ease-out" 
+                    />
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
                         <h3 class="text-2xl font-heading font-bold text-white uppercase mb-2">Zednické práce & Obklady</h3>
@@ -205,28 +205,24 @@
         </div>
     </section>
 
-    <div class="bg-brand-brick py-12 border-y border-white/10 overflow-hidden">
-        <div class="md:max-w-7xl md:mx-auto md:px-4 sm:px-6 lg:px-8 md:overflow-visible">
-            <div class="md:grid md:grid-cols-4 md:gap-8 md:text-center md:divide-x md:divide-white/20">
-                <!-- Mobile: Marquee -->
-                <div class="flex animate-marquee whitespace-nowrap md:hidden">
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">5+</span><span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span></div>
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">20+</span><span class="text-white/80 text-sm uppercase tracking-wider">Projektů</span></div>
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">100%</span><span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span></div>
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">1</span><span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span></div>
-                    <!-- Duplicated for infinite effect -->
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">5+</span><span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span></div>
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">20+</span><span class="text-white/80 text-sm uppercase tracking-wider">Projektů</span></div>
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">100%</span><span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span></div>
-                    <div class="flex-shrink-0 p-2 text-center w-1/2"><span class="block text-4xl font-heading font-bold text-white mb-1">1</span><span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span></div>
+    <div class="bg-brand-brick py-12 border-y border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
+                <div class="p-2">
+                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">15+</span>
+                    <span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span>
                 </div>
-
-                <!-- Desktop: Static Grid -->
-                <div class="hidden md:contents">
-                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">5+</span><span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span></div>
-                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">20+</span><span class="text-white/80 text-sm uppercase tracking-wider">Projektů</span></div>
-                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">100%</span><span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span></div>
-                    <div class="p-2 text-center"><span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">1</span><span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span></div>
+                <div class="p-2">
+                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">50+</span>
+                    <span class="text-white/80 text-sm uppercase tracking-wider">Rodinných domů</span>
+                </div>
+                <div class="p-2">
+                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">100%</span>
+                    <span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span>
+                </div>
+                <div class="p-2">
+                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">1</span>
+                    <span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span>
                 </div>
             </div>
         </div>
@@ -239,6 +235,9 @@
                     <span class="text-brand-brick font-heading font-bold tracking-widest uppercase text-sm">Naše práce</span>
                     <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mt-2 uppercase">Vybrané realizace</h2>
                 </div>
+                <a href="#kontakt" class="text-white hover:text-brand-brick border-b border-brand-brick pb-1 transition-colors font-heading uppercase tracking-wider text-sm">
+                    Chci vidět více fotek ->
+                </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -265,60 +264,6 @@
                     <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Vila Průhonice</h3>
                     <p class="text-gray-400 mt-2">Realizace od základové desky po střechu. Včetně terénních úprav.</p>
                 </div>
-            </div>
-
-            <div id="more-projects" class="hidden grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                <div class="group cursor-pointer">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=2000&auto=format&fit=crop" 
-                             alt="Interiér domu" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-brick text-white text-xs font-heading uppercase px-3 py-1">Interiérové práce</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">RD Říčany</h3>
-                    <p class="text-gray-400 mt-2">Kompletní sádrokartony, omítky a malba v novostavbě.</p>
-                </div>
-
-                <div class="group cursor-pointer md:mt-12">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop" 
-                             alt="Exteriér domu" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-black text-xs font-heading uppercase px-3 py-1">Fasáda & Exteriér</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">RD Beroun</h3>
-                    <p class="text-gray-400 mt-2">Nová fasáda, zateplení a pokládka zámkové dlažby.</p>
-                </div>
-
-                <div class="group cursor-pointer">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1572949645841-094f3a9c4c94?q=80&w=2000&auto=format=fit=crop" 
-                             alt="Základová deska" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-brick text-white text-xs font-heading uppercase px-3 py-1">Základové práce</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">RD Jílové u Prahy</h3>
-                    <p class="text-gray-400 mt-2">Realizace základové desky pro dřevostavbu včetně přípojek.</p>
-                </div>
-
-                <div class="group cursor-pointer md:mt-12">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1524072236294-9a07a7a29523?q=80&w=2000&auto=format=fit=crop" 
-                             alt="Střecha" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-black text-xs font-heading uppercase px-3 py-1">Střecha</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">RD Mníšek pod Brdy</h3>
-                    <p class="text-gray-400 mt-2">Kompletní realizace nové střechy včetně klempířských prvků.</p>
-                </div>
-            </div>
-
-            <div class="text-center mt-16">
-                <button id="show-more-btn" class="text-white hover:text-brand-brick border-b border-brand-brick pb-1 transition-colors font-heading uppercase tracking-wider text-sm">Zobrazit více realizací</button>
             </div>
         </div>
     </section>
@@ -409,20 +354,11 @@
                                 <a href="mailto:jdj-craft@seznam.cz" class="text-2xl font-heading font-bold text-white hover:text-brand-brick transition-colors">jdj-craft@seznam.cz</a>
                             </div>
                         </div>
-
+                        
                         <div class="pt-8">
                              <h4 class="text-white font-heading font-bold uppercase mb-2">Sídlo firmy</h4>
                              <p class="text-gray-400">JDJ-CRAFT s.r.o.<br>Tichov 130<br>766 01 Tichov</p>
                              <p class="text-gray-500 text-sm mt-2">IČO: 22461990</p>
-                        </div>
-
-                        <div class="flex items-center gap-5 pt-8">
-                            <a href="https://www.facebook.com/josef.jahoda.161" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
-                            </a>
-                            <a href="https://www.instagram.com/jdj_craft/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.6 14.8c-.4.4-.9.6-1.4.6h-6.4c-.5 0-1-.2-1.4-.6-.4-.4-.6-.9-.6-1.4V8.6c0-.5.2-1 .6-1.4.4-.4.9-.6 1.4-.6h6.4c.5 0 1 .2 1.4.6.4.4.6.9.6 1.4v6.4c0 .5-.2 1-.6 1.4z"/><path d="M12 9.3c-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7-1.2-2.7-2.7-2.7zm0 4.4c-.9 0-1.7-.8-1.7-1.7s.8-1.7 1.7-1.7 1.7.8 1.7 1.7-.8 1.7-1.7 1.7zm3.1-5.2c-.3 0-.5.2-.5.5s.2.5.5.5.5-.2.5-.5-.2-.5-.5-.5z"/></svg>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -457,7 +393,7 @@
 
     <footer class="bg-brand-black py-8 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm py-4">
+            <p class="text-gray-600 text-sm">
                 &copy; <span id="copyright-year">2025</span> JDJ-CRAFT s.r.o. | Všechna práva vyhrazena.
             </p>
         </div>
@@ -470,37 +406,13 @@
         // Podmínka pro bezpečné spuštění
         if (btn && menu) {
             btn.addEventListener('click', () => {
-                menu.classList.toggle('menu-open');
+                menu.classList.toggle('hidden');
             });
-
-            window.addEventListener('scroll', () => {
-                if (menu.classList.contains('menu-open')) {
-                    menu.classList.remove('menu-open');
-                }
-            }, { passive: true });
         }
 
         const yearEl = document.getElementById('copyright-year');
         if (yearEl) {
             yearEl.textContent = new Date().getFullYear().toString();
-        }
-
-        const showMoreBtn = document.getElementById('show-more-btn');
-        const moreProjects = document.getElementById('more-projects');
-
-        if (showMoreBtn && moreProjects) {
-            showMoreBtn.addEventListener('click', () => {
-                const isHidden = moreProjects.classList.contains('hidden');
-                if (isHidden) {
-                    moreProjects.classList.remove('hidden');
-                    moreProjects.classList.add('grid');
-                    showMoreBtn.textContent = 'Zobrazit méně';
-                } else {
-                    moreProjects.classList.add('hidden');
-                    moreProjects.classList.remove('grid');
-                    showMoreBtn.textContent = 'Zobrazit více realizací';
-                }
-            });
         }
     </script>
 
