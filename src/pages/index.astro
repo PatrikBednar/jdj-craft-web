@@ -22,6 +22,16 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;600;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
   </head>
+
+  <style>
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+  </style>
   
   <body class="bg-brand-black text-gray-100 font-body antialiased selection:bg-brand-brick selection:text-white">
 
@@ -58,8 +68,8 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
         </div>
       </div>
 
-      <div id="mobile-menu" class="hidden md:hidden bg-brand-gray border-b border-white/10">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading uppercase">
+      <div id="mobile-menu" class="md:hidden bg-brand-gray border-b border-white/10 max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading uppercase text-center">
           <a href="#sluzby" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Služby</a>
           <a href="#realizace" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Realizace</a>
           <a href="#recenze" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Recenze</a>
@@ -80,7 +90,7 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
 
       <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16 animate-fade-in-up">
         <p class="text-brand-brick font-heading font-bold tracking-[0.2em] uppercase mb-4">
-          Od roku 2025
+          <!--Od roku 2025-->
         </p>
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white uppercase leading-tight mb-8 drop-shadow-2xl">
           Stavíme domy <br />
@@ -111,9 +121,6 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
         </div>
       </div>
 
-      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-      </div>
     </header>
 
     <section id="sluzby" class="py-24 bg-brand-black relative scroll-mt-20">
@@ -205,25 +212,39 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
         </div>
     </section>
 
-    <div class="bg-brand-brick py-12 border-y border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">15+</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span>
-                </div>
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">50+</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Rodinných domů</span>
-                </div>
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">100%</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span>
-                </div>
-                <div class="p-2">
-                    <span class="block text-4xl md:text-5xl font-heading font-bold text-white mb-1">1</span>
-                    <span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span>
-                </div>
+    <div class="bg-brand-brick py-8 border-y border-white/10 overflow-hidden relative">
+        <div class="flex md:hidden">
+            <div class="flex animate-marquee flex-shrink-0">
+                {[...Array(2)].map((_, i) => (
+                    <>
+                        <div class="w-[40vw] flex-shrink-0 text-center px-4">
+                            <span class="block text-3xl font-heading font-bold text-white mb-1">5+</span>
+                            <span class="text-white/80 text-sm uppercase tracking-wider">Let praxe</span>
+                        </div>
+                        <div class="w-[40vw] flex-shrink-0 text-center px-4">
+                            <span class="block text-3xl font-heading font-bold text-white mb-1">15+</span>
+                            <span class="text-white/80 text-sm uppercase tracking-wider">Dokončených projektů</span>
+                        </div>
+                        <div class="w-[40vw] flex-shrink-0 text-center px-4">
+                            <span class="block text-3xl font-heading font-bold text-white mb-1">100%</span>
+                            <span class="text-white/80 text-sm uppercase tracking-wider">Dodržení termínů</span>
+                        </div>
+                        <div class="w-[40vw] flex-shrink-0 text-center px-4">
+                            <span class="block text-3xl font-heading font-bold text-white mb-1">1</span>
+                            <span class="text-white/80 text-sm uppercase tracking-wider">Firma na vše</span> {i === 0 && <span class="inline-block w-16"></span>}
+                        </div>
+                    </>
+                ))}
+            </div>
+        </div>
+        <div class="hidden md:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-4 gap-8 text-center divide-x divide-white/20">
+                {[ { val: '5+', label: 'Let praxe' }, { val: '15+', label: 'Dokončených projektů' }, { val: '100%', label: 'Dodržení termínů' }, { val: '1', label: 'Firma na vše' } ].map(item => (
+                    <div class="p-2">
+                        <span class="block text-5xl font-heading font-bold text-white mb-1">{item.val}</span>
+                        <span class="text-white/80 text-sm uppercase tracking-wider">{item.label}</span>
+                    </div>
+                ))}
             </div>
         </div>
     </div>
@@ -231,16 +252,13 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
     <section id="realizace" class="py-24 bg-[#0a0a0a] scroll-mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div>
+                <div class="w-full text-center md:text-left">
                     <span class="text-brand-brick font-heading font-bold tracking-widest uppercase text-sm">Naše práce</span>
                     <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mt-2 uppercase">Vybrané realizace</h2>
                 </div>
-                <a href="#kontakt" class="text-white hover:text-brand-brick border-b border-brand-brick pb-1 transition-colors font-heading uppercase tracking-wider text-sm">
-                    Chci vidět více fotek ->
-                </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div id="projekty-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="group cursor-pointer">
                     <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
@@ -249,8 +267,8 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
                         <div class="absolute top-4 left-4 z-20 bg-brand-brick text-white text-xs font-heading uppercase px-3 py-1">Kompletní rekonstrukce</div>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">RD Černošice</h3>
-                    <p class="text-gray-400 mt-2">Kompletní výměna rozvodů, nové podlahové topení a obklady v koupelně.</p>
+                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Stavba 1</h3>
+                    <p class="text-gray-400 mt-2">Popis</p>
                 </div>
 
                 <div class="group cursor-pointer md:mt-12">
@@ -261,9 +279,67 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
                         <div class="absolute top-4 left-4 z-20 bg-white text-black text-xs font-heading uppercase px-3 py-1">Novostavba na klíč</div>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Vila Průhonice</h3>
-                    <p class="text-gray-400 mt-2">Realizace od základové desky po střechu. Včetně terénních úprav.</p>
+                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Stavba 2</h3>
+                    <p class="text-gray-400 mt-2">Popis</p>
                 </div>
+
+                <!-- Skryté projekty -->
+                <div class="group cursor-pointer hidden project-item">
+                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Stavba 3" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
+                        <div class="absolute top-4 left-4 z-20 bg-brand-brick text-white text-xs font-heading uppercase px-3 py-1">Novostavba</div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Stavba 3</h3>
+                    <p class="text-gray-400 mt-2">Popis</p>
+                </div>
+
+                <div class="group cursor-pointer md:mt-12 hidden project-item">
+                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Stavba 4" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
+                        <div class="absolute top-4 left-4 z-20 bg-white text-black text-xs font-heading uppercase px-3 py-1">Dům na klíč</div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Stavba 4</h3>
+                    <p class="text-gray-400 mt-2">Popis</p>
+                </div>
+
+                <div class="group cursor-pointer hidden project-item">
+                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Stavba 5" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
+                        <div class="absolute top-4 left-4 z-20 bg-brand-brick text-white text-xs font-heading uppercase px-3 py-1">Rekonstrukce</div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Stavba 5</h3>
+                    <p class="text-gray-400 mt-2">Popis</p>
+                </div>
+
+                <div class="group cursor-pointer md:mt-12 hidden project-item">
+                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1974&auto=format&fit=crop" 
+                             alt="Stavba 6" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale group-hover:grayscale-0" />
+                        <div class="absolute top-4 left-4 z-20 bg-white text-black text-xs font-heading uppercase px-3 py-1">Novostavba</div>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white group-hover:text-brand-brick transition-colors">Stavba 6</h3>
+                    <p class="text-gray-400 mt-2">Popis</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-16">
+                <button id="zobrazit-dalsi-btn" class="inline-block bg-transparent hover:bg-brand-brick text-white font-semibold hover:text-white py-3 px-8 border border-brand-brick hover:border-transparent rounded-sm transition-all duration-300 uppercase font-heading tracking-wider">
+                    Zobrazit další projekty
+                </button>
+                <button id="skryt-projekty-btn" class="hidden inline-block bg-transparent hover:bg-brand-brick text-white font-semibold hover:text-white py-3 px-8 border border-brand-brick hover:border-transparent rounded-sm transition-all duration-300 uppercase font-heading tracking-wider">
+                    Skrýt projekty
+                </button>
             </div>
         </div>
     </section>
@@ -405,14 +481,60 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
 
         // Podmínka pro bezpečné spuštění
         if (btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
+            const closeMenu = () => {
+                menu.classList.remove('max-h-96', 'opacity-100');
+            };
+
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Zabrání prokliku na document listener
+                menu.classList.toggle('max-h-96');
+                menu.classList.toggle('opacity-100');
             });
+
+            // Zavřít menu při kliknutí na odkaz v menu
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // Zavřít menu při kliknutí mimo něj
+            document.addEventListener('click', (e) => {
+                if (!menu.contains(e.target as Node) && e.target !== btn) {
+                    closeMenu();
+                }
+            });
+            // Zavřít menu při scrollování
+            window.addEventListener('scroll', closeMenu);
         }
 
         const yearEl = document.getElementById('copyright-year');
         if (yearEl) {
             yearEl.textContent = new Date().getFullYear().toString();
+        }
+
+        const showMoreBtn = document.getElementById('zobrazit-dalsi-btn');
+        const hideBtn = document.getElementById('skryt-projekty-btn');
+        const hiddenProjects = document.querySelectorAll('.project-item');
+
+        if (showMoreBtn && hideBtn && hiddenProjects.length > 0) {
+            showMoreBtn.addEventListener('click', () => {
+                hiddenProjects.forEach(project => {
+                    project.classList.remove('hidden');
+                });
+                showMoreBtn.classList.add('hidden');
+                hideBtn.classList.remove('hidden');
+            });
+
+            hideBtn.addEventListener('click', () => {
+                hiddenProjects.forEach(project => {
+                    project.classList.add('hidden');
+                });
+                hideBtn.classList.add('hidden');
+                showMoreBtn.classList.remove('hidden');
+                const realizaceSection = document.getElementById('realizace');
+                if (realizaceSection) {
+                    realizaceSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         }
     </script>
 
