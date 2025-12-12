@@ -1,10 +1,8 @@
 ---
 // src/pages/index.astro
 
-// 1. Import nástroje pro obrázky
 import { Image } from 'astro:assets';
 
-// 2. Import vašich fotek ze složky
 import domyImg from '../assets/mainpage/domy-na-klic.jpg';
 import vodoImg from '../assets/mainpage/vodo-topo.jpg';
 import elektroImg from '../assets/mainpage/elektro.jpg';
@@ -540,7 +538,7 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
         const showMoreBtn = document.getElementById('zobrazit-dalsi-btn');
         const hideBtn = document.getElementById('skryt-projekty-btn');
         const hiddenProjects = document.querySelectorAll('.project-item');
-
+    
         if (showMoreBtn && hideBtn && hiddenProjects.length > 0) {
             showMoreBtn.addEventListener('click', () => {
                 hiddenProjects.forEach(project => {
