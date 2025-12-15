@@ -3,10 +3,11 @@
 
 import { Image } from 'astro:assets';
 
-import domyImg from '../assets/mainpage/domy-na-klic.jpg';
 import vodoImg from '../assets/mainpage/vodo-topo.jpg';
 import elektroImg from '../assets/mainpage/elektro.jpg';
 import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
+// Zde importujeme Váš main-image.jpg
+import mainImage from '../assets/mainpage/main-image.jpg';
 ---
 
 <html lang="cs" class="scroll-smooth">
@@ -150,17 +151,19 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
 
     <header class="relative h-screen flex items-center justify-center overflow-hidden bg-brand-black">
       <div class="absolute inset-0 z-0">
-        <img 
-            src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop" 
+        <Image 
+            src={mainImage} 
             alt="Stavba domu na klíč" 
             class="w-full h-full object-cover"
+            format={'webp'} 
+            quality={80} 
         />
         <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/70 to-brand-black/40"></div>
       </div>
 
       <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16 animate-fade-in-up">
         <p class="text-gray-300 font-heading font-bold tracking-[0.2em] uppercase mb-4">
-          
+          Od roku 2025
         </p>
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-white uppercase leading-tight mb-8 drop-shadow-2xl">
           Stavíme domy <br />
@@ -203,8 +206,8 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
                 
                 <a href="/hruba-stavba" class="group relative md:col-span-2 rounded-sm overflow-hidden bg-brand-black border border-black/10 hover:shadow-2xl transition-all duration-300 block">
-                    <Image 
-                        src={domyImg} 
+                    <img
+                        src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop"
                         alt="Hrubá stavba" 
                         class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out" 
                     />
@@ -320,10 +323,10 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                         <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2000&auto=format&fit=crop" 
                              alt="Rekonstrukce" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Kompletní rekonstrukce</div>
+                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Stavba 1</div>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">RD Černošice</h3>
-                    <p class="text-gray-600 mt-2">Kompletní výměna rozvodů, nové podlahové topení a obklady v koupelně.</p>
+                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 1</h3>
+                    <p class="text-gray-600 mt-2">Popis 1</p>
                 </div>
 
                 <div class="group cursor-pointer md:mt-12">
@@ -332,10 +335,10 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                         <img src="https://images.unsplash.com/photo-1590089415225-401cd6f9ad8d?q=80&w=2000&auto=format&fit=crop" 
                              alt="Novostavba" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Novostavba na klíč</div>
+                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Stavba 2</div>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Vila Průhonice</h3>
-                    <p class="text-gray-600 mt-2">Realizace od základové desky po střechu. Včetně terénních úprav.</p>
+                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 2</h3>
+                    <p class="text-gray-600 mt-2">Popis 2</p>
                 </div>
 
                  <div class="group cursor-pointer hidden project-item">
@@ -344,10 +347,10 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                         <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" 
                              alt="Stavba 3" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Novostavba</div>
+                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Stavba 3</div>
                     </div>
                     <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 3</h3>
-                    <p class="text-gray-600 mt-2">Popis</p>
+                    <p class="text-gray-600 mt-2">Popis 3</p>
                 </div>
                  <div class="group cursor-pointer md:mt-12 hidden project-item">
                     <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
@@ -355,10 +358,10 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" 
                              alt="Stavba 4" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Dům na klíč</div>
+                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Stavba 4</div>
                     </div>
                     <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 4</h3>
-                    <p class="text-gray-600 mt-2">Popis</p>
+                    <p class="text-gray-600 mt-2">Popis 4</p>
                 </div>
                  <div class="group cursor-pointer hidden project-item">
                     <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
@@ -366,10 +369,10 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                         <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop" 
                              alt="Stavba 5" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Rekonstrukce</div>
+                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Stavba 5</div>
                     </div>
                     <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 5</h3>
-                    <p class="text-gray-600 mt-2">Popis</p>
+                    <p class="text-gray-600 mt-2">Popis 5</p>
                 </div>
                  <div class="group cursor-pointer md:mt-12 hidden project-item">
                     <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
@@ -377,10 +380,10 @@ import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
                         <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1974&auto=format&fit=crop" 
                              alt="Stavba 6" 
                              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Novostavba</div>
+                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Stavba 6</div>
                     </div>
                     <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 6</h3>
-                    <p class="text-gray-600 mt-2">Popis</p>
+                    <p class="text-gray-600 mt-2">Popis 6</p>
                  </div>
             </div>
 
