@@ -1,0 +1,45 @@
+---
+// src/components/NavMain.astro
+---
+<nav class="fixed w-full z-50 top-0 bg-brand-black/90 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <a href="/" class="flex items-end gap-5 group">
+           <div class="flex gap-[5px] h-[48px] items-end"> 
+              <div class="w-[13px] h-[48px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300"></div>
+              <div class="w-[13px] h-[38px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300 delay-75"></div>
+              <div class="w-[13px] h-[48px] bg-white group-active:bg-brand-brick md:group-hover:bg-brand-brick transition-colors duration-300 delay-150"></div>
+           </div>
+           <span class="font-['Montserrat'] font-black text-2xl text-white leading-none pb-1 tracking-tight">JDJ-craft</span>
+        </a>
+
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-8 font-heading uppercase tracking-wide text-sm">
+            <a href="/#sluzby" class="relative hover:text-brand-brick transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-brand-brick after:transition-all after:duration-300 hover:after:w-full">Služby</a>
+            <a href="/#realizace" class="relative hover:text-brand-brick transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-brand-brick after:transition-all after:duration-300 hover:after:w-full">Realizace</a>
+            <a href="/#recenze" class="relative hover:text-brand-brick transition-colors duration-300 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-brand-brick after:transition-all after:duration-300 hover:after:w-full">Recenze</a>
+            <a href="/#kontakt" class="bg-brand-brick text-white px-5 py-2 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 hover:brightness-110">
+              Kontakt
+            </a>
+          </div>
+        </div>
+
+        <div class="-mr-2 flex md:hidden">
+          <button id="mobile-menu-btn" type="button" class="text-gray-400 hover:text-white p-2">
+            <span class="sr-only">Otevřít menu</span>
+            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden bg-brand-gray border-b border-white/10 max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-in-out">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-heading uppercase text-center">
+        <a href="/#sluzby" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Služby</a>
+        <a href="/#realizace" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Realizace</a>
+        <a href="/#recenze" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Recenze</a>
+        <a href="/#kontakt" class="text-brand-brick hover:text-white block px-3 py-2 rounded-md text-base font-bold">Kontaktovat</a>
+      </div>
+    </div>
+</nav>
