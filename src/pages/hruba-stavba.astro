@@ -2,7 +2,7 @@
 // src/pages/hruba-stavba.astro
 
 import { Image } from 'astro:assets';
-import heroImg from '../assets/mainpage/domy-na-klic.jpg'; // Ujistěte se, že cesta sedí
+import heroImg from '../assets/mainpage/heroImg/hruba-stavba.jpg'; // Ujistěte se, že cesta sedí
 ---
 
 <html lang="cs" class="scroll-smooth">
@@ -144,10 +144,11 @@ import heroImg from '../assets/mainpage/domy-na-klic.jpg'; // Ujistěte se, že 
 
     <header class="relative h-[60vh] flex items-center justify-center overflow-hidden bg-brand-black">
       <div class="absolute inset-0 z-0">
-        <img 
-            src="https://images.unsplash.com/photo-1621905252507-b35a83013b0b?q=80&w=2069&auto=format&fit=crop" 
+        <Image 
+            src={heroImg} 
             alt="Hrubá stavba domu" 
             class="w-full h-full object-cover"
+            loading="eager"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/80 to-brand-black/40"></div>
       </div>
@@ -234,50 +235,7 @@ import heroImg from '../assets/mainpage/domy-na-klic.jpg'; // Ujistěte se, že 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-heading font-bold text-white uppercase mb-12 text-center">Ukázky z realizací</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                 <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1599708153386-53c08dd00f6d?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Betonáž základové desky" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-white pb-1">Základová deska</span>
-                    </div>
-                </div>
-
-                 <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer lg:col-span-2">
-                    <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?q=80&w=2069&auto=format&fit=crop" 
-                         alt="Zdění hrubé stavby" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-white pb-1">Zdění obvodových stěn</span>
-                    </div>
-                </div>
-
-                 <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1632759145351-1d59291a4d6d?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Konstrukce krovu" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-white pb-1">Tesařské práce</span>
-                    </div>
-                </div>
-
-                 <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Bagr při práci" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-white pb-1">Zemní práce</span>
-                    </div>
-                </div>
-
-                 <div class="group relative h-80 overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2000&auto=format&fit=crop" 
-                         alt="Detail stavebního materiálu" 
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-heading uppercase tracking-wider border-b-2 border-white pb-1">Kvalitní materiál</span>
-                    </div>
-                </div>
+                <!-- Zde budou v budoucnu obrázky -->
             </div>
         </div>
     </section>
@@ -318,29 +276,40 @@ import heroImg from '../assets/mainpage/domy-na-klic.jpg'; // Ujistěte se, že 
                     </div>
                 </div>
 
-                <form class="bg-white p-8 md:p-10 rounded-sm border border-gray-200 shadow-2xl">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Jméno</label>
-                            <input type="text" class="w-full bg-white border border-gray-300 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black transition-colors rounded-sm" placeholder="Jan Novák">
+                <div class="bg-gray-50 p-8 md:p-10 lg:p-12 rounded-sm shadow-2xl border border-gray-100">
+                    <h3 class="text-2xl font-heading font-bold text-brand-black uppercase mb-6">Zanechte nám vzkaz</h3>
+                    <form action="https://formspree.io/f/mnjaaarw" method="POST">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="sr-only">Jméno a příjmení</label>
+                                <input type="text" name="name" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Jméno a příjmení">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="sr-only">Telefon</label>
+                                    <input type="tel" name="phone" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Telefon">
+                                </div>
+                                <div>
+                                    <label class="sr-only">Email</label>
+                                    <input type="email" name="email" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Váš email">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="sr-only">Zpráva</label>
+                                <textarea rows="4" name="message" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400 resize-none" placeholder="Mám zájem o hrubou stavbu..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-brand-black hover:bg-brand-accent text-white font-heading font-bold uppercase tracking-wider py-4 rounded-sm transition-all duration-300 shadow-lg transform hover:-translate-y-1">
+                                Odeslat poptávku
+                            </button>
+                            <p class="text-xs text-gray-400 text-center mt-4">
+                                Odesláním souhlasíte se zpracováním osobních údajů.
+                            </p>
                         </div>
-                        <div>
-                            <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Telefon</label>
-                            <input type="tel" class="w-full bg-white border border-gray-300 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black transition-colors rounded-sm" placeholder="+420 ...">
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Email</label>
-                        <input type="email" class="w-full bg-white border border-gray-300 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black transition-colors rounded-sm" placeholder="vas@email.cz">
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Zpráva</label>
-                        <textarea rows="4" class="w-full bg-white border border-gray-300 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black transition-colors rounded-sm" placeholder="Mám zájem o hrubou stavbu..."></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-brand-black hover:bg-brand-accent text-white font-heading font-bold uppercase tracking-wider py-4 rounded-sm transition-all duration-300">
-                        Odeslat poptávku
-                    </button>
-                </form>
+                    </form>
+                </div>
 
             </div>
         </div>

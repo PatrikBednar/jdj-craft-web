@@ -55,23 +55,18 @@ const projectsData = [
     title: "Projekt2",
     category: "Projekt2",
     shortDesc: "Projekt2",
-    fullDesc: "Popis2",
-    mainImage: "https://images.unsplash.com/photo-1590089415225-401cd6f9ad8d?q=80&w=1000&auto=format&fit=crop",
-    gallery: [
-        "https://images.unsplash.com/photo-1590089415225-401cd6f9ad8d?q=80&w=1000&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop"
-    ]
+    fullDesc: "Popis projektu 2",
+    mainImage: "",
+    gallery: []
   },
   {
     id: "projekt-3",
     title: "Projekt3",
     category: "Projekt3",
     shortDesc: "Projekt3",
-    fullDesc: "Popis3",
-    mainImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
-    gallery: [
-         "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop"
-    ],
+    fullDesc: "Popis projektu 3",
+    mainImage: "",
+    gallery: [],
     hidden: true
   },
   {
@@ -79,17 +74,24 @@ const projectsData = [
     title: "Projekt4",
     category: "Projekt4",
     shortDesc: "Projekt4",
-    fullDesc: "Popis4",
-    mainImage: "https://images.unsplash.com/photo-1558402529-d2638a7023e9?q=80&w=1000&auto=format&fit=crop",
-    gallery: [
-        "https://images.unsplash.com/photo-1558402529-d2638a7023e9?q=80&w=1000&auto=format&fit=crop"
-    ],
+    fullDesc: "Popis projektu 4",
+    mainImage: "",
+    gallery: [],
     hidden: true
   }
 ];
 
 // Optimalizace obrázků pomocí getImage
 const projects = await Promise.all(projectsData.map(async (project) => {
+    // Pokud projekt nemá hlavní obrázek, vrátíme ho bez optimalizace
+    if (!project.mainImage) {
+        return {
+            ...project,
+            mainImage: '/placeholder.svg', // Cesta k zástupnému obrázku
+            gallery: []
+        };
+    }
+
     // Optimalizace hlavního obrázku
     const mainImageOptimized = await getImage({
         src: project.mainImage,
@@ -118,6 +120,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
     };
 }));
 ---
+
 
 <html lang="cs" class="scroll-smooth">
   <head>
@@ -694,37 +697,37 @@ const projects = await Promise.all(projectsData.map(async (project) => {
 
                         <div class="md:w-1/2 p-8 md:p-10 lg:p-12">
                             <h3 class="text-2xl font-heading font-bold text-brand-black uppercase mb-6">Zanechte nám vzkaz</h3>
-                            <form>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="sr-only">Jméno a příjmení</label>
-                                        <input type="text" class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Jméno a příjmení">
-                                    </div>
-                                    
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="sr-only">Telefon</label>
-                                            <input type="tel" class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Telefon">
-                                        </div>
-                                        <div>
-                                            <label class="sr-only">Email</label>
-                                            <input type="email" class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Váš email">
-                                        </div>
-                                    </div>
+                            <form action="https://formspree.io/f/mnjaaarw" method="POST">
+    <div class="space-y-4">
+        <div>
+            <label class="sr-only">Jméno a příjmení</label>
+            <input type="text" name="name" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Jméno a příjmení">
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <label class="sr-only">Telefon</label>
+                <input type="tel" name="phone" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Telefon">
+            </div>
+            <div>
+                <label class="sr-only">Email</label>
+                <input type="email" name="email" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Váš email">
+            </div>
+        </div>
 
-                                    <div>
-                                        <label class="sr-only">Zpráva</label>
-                                        <textarea rows="4" class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400 resize-none" placeholder="Mám zájem o rekonstrukci..."></textarea>
-                                    </div>
+        <div>
+            <label class="sr-only">Zpráva</label>
+            <textarea rows="4" name="message" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400 resize-none" placeholder="Mám zájem o rekonstrukci..."></textarea>
+        </div>
 
-                                    <button type="submit" class="w-full bg-brand-black hover:bg-brand-accent text-white font-heading font-bold uppercase tracking-wider py-4 rounded-sm transition-all duration-300 shadow-lg transform hover:-translate-y-1">
-                                        Odeslat poptávku
-                                    </button>
-                                    <p class="text-xs text-gray-400 text-center mt-4">
-                                        Odesláním souhlasíte se zpracováním osobních údajů.
-                                    </p>
-                                </div>
-                            </form>
+        <button type="submit" class="w-full bg-brand-black hover:bg-brand-accent text-white font-heading font-bold uppercase tracking-wider py-4 rounded-sm transition-all duration-300 shadow-lg transform hover:-translate-y-1">
+            Odeslat poptávku
+        </button>
+        <p class="text-xs text-gray-400 text-center mt-4">
+            Odesláním souhlasíte se zpracováním osobních údajů.
+        </p>
+    </div>
+</form>
                         </div>
                     </div>
                 </div>
@@ -746,14 +749,13 @@ const projects = await Promise.all(projectsData.map(async (project) => {
                         </svg>
                     </button>
 
-                    <div class="flex flex-col md:flex-row h-full items-stretch">
-                        <div class="md:w-3/5 bg-black relative min-h-[400px] md:min-h-[600px] flex items-center justify-center group bg-neutral-900">
-                            <img id="modal-image" src="" alt="Detail realizace" class="max-h-[600px] w-full object-contain" />
+                    <div class="flex flex-col-reverse md:flex-row h-full items-stretch">
+                        <div id="modal-image-container" class="md:w-3/5 bg-neutral-900 relative group aspect-[4/5] md:aspect-auto md:min-h-[600px] bg-cover bg-center bg-no-repeat">
                             
-                            <button id="prev-image" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                            <button id="prev-image" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
                             </button>
-                            <button id="next-image" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                            <button id="next-image" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
                             </button>
                             
@@ -904,7 +906,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
         const projectCards = document.querySelectorAll('.project-card');
         
         // Elementy v modalu
-        const mImage = document.getElementById('modal-image');
+        const mImageContainer = document.getElementById('modal-image-container');
         const mTitle = document.getElementById('modal-title');
         const mCategory = document.getElementById('modal-category');
         const mDesc = document.getElementById('modal-desc');
@@ -947,7 +949,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
         }
 
         function updateGalleryImage() {
-            mImage.src = currentGallery[currentImageIndex];
+            mImageContainer.style.backgroundImage = `url('${currentGallery[currentImageIndex]}')`;
             mCurrentIdx.textContent = currentImageIndex + 1;
             mTotalImg.textContent = currentGallery.length;
             
