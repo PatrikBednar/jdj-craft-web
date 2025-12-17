@@ -1,7 +1,7 @@
 ---
 // src/pages/index.astro
 
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 
 import domyImg from '../assets/mainpage/domy-na-klic.jpg';
 import vodoImg from '../assets/mainpage/vodo-topo.jpg';
@@ -9,6 +9,114 @@ import elektroImg from '../assets/mainpage/elektro.jpg';
 import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
 import mainImage from '../assets/mainpage/main-image.jpg';
 import kontaktImg from '../assets/mainpage/kontakt-image.jpg';
+
+//projekt1
+import project1Img1 from '../assets/projectsImg/Project1/IMG_3473_lightbox.jpg';
+import project1Img2 from '../assets/projectsImg/Project1/IMG_3409_lightbox.jpg';
+import project1Img3 from '../assets/projectsImg/Project1/IMG_3421_lightbox.jpg';
+import project1Img4 from '../assets/projectsImg/Project1/IMG_3434_lightbox.jpg';
+import project1Img5 from '../assets/projectsImg/Project1/IMG_3436_lightbox.jpg';
+import project1Img6 from '../assets/projectsImg/Project1/IMG_3441_lightbox.jpg';
+import project1Img7 from '../assets/projectsImg/Project1/IMG_3445_lightbox.jpg';
+import project1Img8 from '../assets/projectsImg/Project1/IMG_3449_lightbox.jpg';
+import project1Img9 from '../assets/projectsImg/Project1/IMG_3460_lightbox.jpg';
+import project1Img10 from '../assets/projectsImg/Project1/IMG_3480_lightbox.jpg';
+//projekt2
+
+//projekt3
+
+//projekt4
+
+
+const projectsData = [
+  {
+    id: "projekt-1",
+    title: "Ekofarma Javorník",
+    category: "vodo-topo",
+    shortDesc: "realizace vodo-topo",
+    fullDesc: "Instalace nových rozvodů vody a topení v prostorách Ekoarmy. Práce obnášely natažení nového potrubí a finální kompletaci sanity. Namontovali jsme nová umyvadla, toalety a úklidové výlevky. Systém jsme doplnili o nový bojler pro ohřev vody a vše uvedli do plného provozu.",
+    
+    mainImage: project1Img1,
+    gallery: [
+        project1Img1, 
+        project1Img2,
+        project1Img3,
+        project1Img4,
+        project1Img5,
+        project1Img6,
+        project1Img7,
+        project1Img8,
+        project1Img9,
+        project1Img10
+    ]
+  },
+  {
+    id: "projekt-2",
+    title: "Projekt2",
+    category: "Projekt2",
+    shortDesc: "Projekt2",
+    fullDesc: "Popis2",
+    mainImage: "https://images.unsplash.com/photo-1590089415225-401cd6f9ad8d?q=80&w=1000&auto=format&fit=crop",
+    gallery: [
+        "https://images.unsplash.com/photo-1590089415225-401cd6f9ad8d?q=80&w=1000&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop"
+    ]
+  },
+  {
+    id: "projekt-3",
+    title: "Projekt3",
+    category: "Projekt3",
+    shortDesc: "Projekt3",
+    fullDesc: "Popis3",
+    mainImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop",
+    gallery: [
+         "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000&auto=format&fit=crop"
+    ],
+    hidden: true
+  },
+  {
+    id: "projekt-4",
+    title: "Projekt4",
+    category: "Projekt4",
+    shortDesc: "Projekt4",
+    fullDesc: "Popis4",
+    mainImage: "https://images.unsplash.com/photo-1558402529-d2638a7023e9?q=80&w=1000&auto=format&fit=crop",
+    gallery: [
+        "https://images.unsplash.com/photo-1558402529-d2638a7023e9?q=80&w=1000&auto=format&fit=crop"
+    ],
+    hidden: true
+  }
+];
+
+// Optimalizace obrázků pomocí getImage
+const projects = await Promise.all(projectsData.map(async (project) => {
+    // Optimalizace hlavního obrázku
+    const mainImageOptimized = await getImage({
+        src: project.mainImage,
+        format: 'webp',
+        width: 1200,
+        height: 800, // PŘIDÁNO: Výška je povinná pro externí URL. Poměr cca 3:2
+        fit: 'cover' // PŘIDÁNO: Zajistí, že se fotka ořízne a nedeformuje
+    });
+
+    // Optimalizace celé galerie (pro popup)
+    const galleryOptimized = await Promise.all(project.gallery.map(async (imgUrl) => {
+        const image = await getImage({
+            src: imgUrl,
+            format: 'webp',
+            width: 1600,
+            height: 1066, // PŘIDÁNO: Výška pro galerii (taky poměr 3:2)
+            fit: 'inside'
+        });
+        return image.src;
+    }));
+
+    return {
+        ...project,
+        mainImage: mainImageOptimized.src,
+        gallery: galleryOptimized
+    };
+}));
 ---
 
 <html lang="cs" class="scroll-smooth">
@@ -426,74 +534,35 @@ import kontaktImg from '../assets/mainpage/kontakt-image.jpg';
             </div>
 
             <div id="projekty-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="group cursor-pointer">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2000&auto=format&fit=crop" 
-                             alt="Rekonstrukce" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Kompletní rekonstrukce</div>
+                {projects.map((project) => (
+                    <div 
+                        class={`group cursor-pointer project-card ${project.hidden ? 'hidden project-hidden' : ''}`}
+                        data-project={JSON.stringify(project)}
+                    >
+                        <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
+                            <img 
+                                src={project.mainImage} 
+                                alt={project.title} 
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" 
+                            />
+                            <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">
+                                {project.category}
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none">
+                                <div class="bg-white/90 text-brand-black p-3 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">
+                            {project.title}
+                        </h3>
+                        <p class="text-gray-600 mt-2">{project.shortDesc}</p>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 1</h3>
-                    <p class="text-gray-600 mt-2">Popis 1</p>
-                </div>
-
-                <div class="group cursor-pointer md:mt-12">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1590089415225-401cd6f9ad8d?q=80&w=2000&auto=format&fit=crop" 
-                             alt="Novostavba" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Novostavba na klíč</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 2</h3>
-                    <p class="text-gray-600 mt-2">Popis 2</p>
-                </div>
-
-                 <div class="group cursor-pointer hidden project-item">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
-                         <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Stavba 3" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Novostavba</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 3</h3>
-                    <p class="text-gray-600 mt-2">Popis 3</p>
-                </div>
-                 <div class="group cursor-pointer md:mt-12 hidden project-item">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Stavba 4" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Dům na klíč</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 4</h3>
-                    <p class="text-gray-600 mt-2">Popis 4</p>
-                </div>
-                 <div class="group cursor-pointer hidden project-item">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop" 
-                             alt="Stavba 5" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">Rekonstrukce</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 5</h3>
-                    <p class="text-gray-600 mt-2">Popis 5</p>
-                </div>
-                 <div class="group cursor-pointer md:mt-12 hidden project-item">
-                    <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=1974&auto=format&fit=crop" 
-                             alt="Stavba 6" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" />
-                        <div class="absolute top-4 left-4 z-20 bg-white text-brand-black text-xs font-heading uppercase px-3 py-1">Novostavba</div>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">Stavba 6</h3>
-                    <p class="text-gray-600 mt-2">Popis 6</p>
-                 </div>
+                ))}
             </div>
 
             <div class="text-center mt-16">
@@ -501,7 +570,7 @@ import kontaktImg from '../assets/mainpage/kontakt-image.jpg';
                     Zobrazit další projekty
                 </button>
                 <button id="skryt-projekty-btn" class="hidden inline-block bg-brand-black hover:bg-brand-accent text-white font-semibold py-3 px-8 rounded-sm transition-all duration-300 uppercase font-heading tracking-wider shadow-lg">
-                    Skrýt projekty
+                    Zobrazit méně
                 </button>
             </div>
         </div>
@@ -658,9 +727,61 @@ import kontaktImg from '../assets/mainpage/kontakt-image.jpg';
                             </form>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/90 transition-opacity opacity-0" id="modal-backdrop"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                
+                <div class="relative transform overflow-hidden rounded-sm bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-7xl opacity-0 scale-95" id="modal-panel">
+                    
+                    <button type="button" id="close-modal-btn" class="absolute top-4 right-4 z-50 text-gray-400 hover:text-brand-black transition-colors bg-white/50 hover:bg-white rounded-full p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+
+                    <div class="flex flex-col md:flex-row h-full items-stretch">
+                        <div class="md:w-3/5 bg-black relative min-h-[400px] md:min-h-[600px] flex items-center justify-center group bg-neutral-900">
+                            <img id="modal-image" src="" alt="Detail realizace" class="max-h-[600px] w-full object-contain" />
+                            
+                            <button id="prev-image" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+                            </button>
+                            <button id="next-image" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                            </button>
+                            
+                            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 px-4 py-1.5 rounded-full text-white text-sm backdrop-blur-md">
+                                <span id="current-index">1</span> / <span id="total-images">1</span>
+                            </div>
+                        </div>
+
+                        <div class="md:w-2/5 p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-white">
+                            <span id="modal-category" class="text-gray-400 font-heading font-bold tracking-[0.2em] uppercase text-sm mb-4"></span>
+                            
+                            <h3 id="modal-title" class="text-3xl md:text-4xl font-heading font-bold text-brand-black uppercase mb-8 leading-tight"></h3>
+                            
+                            <div class="prose prose-lg text-gray-600 mb-10 flex-grow overflow-y-auto max-h-[400px] pr-4 custom-scrollbar">
+                                <p id="modal-desc" class="leading-relaxed"></p>
+                            </div>
+                            
+                            <div class="mt-auto pt-8 border-t border-gray-100">
+                                <a href="#kontakt" onclick="closeModal()" class="block w-full text-center bg-brand-black text-white hover:bg-brand-accent py-4 font-heading uppercase font-bold tracking-wider transition-colors rounded-sm text-lg shadow-lg transform hover:-translate-y-1 duration-300">
+                                    Mám zájem o podobné
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-brand-black py-8 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 text-center">
@@ -742,29 +863,146 @@ import kontaktImg from '../assets/mainpage/kontakt-image.jpg';
             yearEl.textContent = new Date().getFullYear().toString();
         }
 
-        const showMoreBtn = document.getElementById('zobrazit-dalsi-btn');
-        const hideBtn = document.getElementById('skryt-projekty-btn');
-        const hiddenProjects = document.querySelectorAll('.project-item');
-        if (showMoreBtn && hideBtn && hiddenProjects.length > 0) {
-            showMoreBtn.addEventListener('click', () => {
-                hiddenProjects.forEach(project => {
-                    project.classList.remove('hidden');
+        // LOGIKA PRO ZOBRAZENÍ DALŠÍCH PROJEKTŮ
+        const showMoreBtnRealizace = document.getElementById('zobrazit-dalsi-btn');
+        const showLessBtnRealizace = document.getElementById('skryt-projekty-btn');
+        const hiddenProjectsRealizace = document.querySelectorAll('.project-hidden');
+        
+        if (showMoreBtnRealizace && showLessBtnRealizace && hiddenProjectsRealizace.length > 0) {
+            // Pokud nejsou žádné skryté projekty, tlačítko rovnou skryjeme
+            // if(hiddenProjectsRealizace.length === 0) {
+            //     showMoreBtnRealizace.style.display = 'none';
+            // }
+
+            showMoreBtnRealizace.addEventListener('click', () => {
+                hiddenProjectsRealizace.forEach(el => {
+                    el.classList.remove('hidden');
+                    // Malá animace pro hladký náběh
+                    el.classList.add('animate-fade-in-up');
                 });
-                showMoreBtn.classList.add('hidden');
-                hideBtn.classList.remove('hidden');
+                showMoreBtnRealizace.classList.add('hidden');
+                showLessBtnRealizace.classList.remove('hidden');
             });
-            hideBtn.addEventListener('click', () => {
-                hiddenProjects.forEach(project => {
-                    project.classList.add('hidden');
+
+            showLessBtnRealizace.addEventListener('click', () => {
+                hiddenProjectsRealizace.forEach(el => {
+                    el.classList.add('hidden');
+                    el.classList.remove('animate-fade-in-up');
                 });
-                hideBtn.classList.add('hidden');
-                showMoreBtn.classList.remove('hidden');
+                showLessBtnRealizace.classList.add('hidden');
+                showMoreBtnRealizace.classList.remove('hidden');
                 const realizaceSection = document.getElementById('realizace');
-                if (realizaceSection) {
-                    realizaceSection.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (realizaceSection) realizaceSection.scrollIntoView({ behavior: 'smooth' });
             });
         }
+
+        // LOGIKA PRO MODAL (POPUP)
+        const modal = document.getElementById('project-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        // Elementy v modalu
+        const mImage = document.getElementById('modal-image');
+        const mTitle = document.getElementById('modal-title');
+        const mCategory = document.getElementById('modal-category');
+        const mDesc = document.getElementById('modal-desc');
+        const mPrev = document.getElementById('prev-image');
+        const mNext = document.getElementById('next-image');
+        const mCurrentIdx = document.getElementById('current-index');
+        const mTotalImg = document.getElementById('total-images');
+
+        let currentGallery = [];
+        let currentImageIndex = 0;
+
+        function openModal(data) {
+            // Naplnění daty
+            mTitle.textContent = data.title;
+            mCategory.textContent = data.category;
+            mDesc.textContent = data.fullDesc;
+            
+            // Galerie
+            currentGallery = data.gallery && data.gallery.length > 0 ? data.gallery : [data.mainImage];
+            currentImageIndex = 0;
+            updateGalleryImage();
+
+            // Zobrazení modalu
+            modal.classList.remove('hidden');
+            // Timeout pro animaci
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'scale-95');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Zamezí scrollování stránky
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function updateGalleryImage() {
+            mImage.src = currentGallery[currentImageIndex];
+            mCurrentIdx.textContent = currentImageIndex + 1;
+            mTotalImg.textContent = currentGallery.length;
+            
+            // Skrytí šipek pokud je jen jedna fotka
+            if(currentGallery.length <= 1) {
+                mPrev.style.display = 'none';
+                mNext.style.display = 'none';
+            } else {
+                mPrev.style.display = 'block';
+                mNext.style.display = 'block';
+            }
+        }
+
+        // Event Listenery pro karty
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const data = JSON.parse(card.dataset.project);
+                openModal(data);
+            });
+        });
+
+        // Event Listenery pro Modal
+        if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if(modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+        
+        // Klávesa ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+            // Šipky pro galerii
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') showPrevImage();
+                if (e.key === 'ArrowRight') showNextImage();
+            }
+        });
+
+        // Galerie navigace
+        function showPrevImage(e) {
+            if(e) e.stopPropagation();
+            if(currentGallery.length > 1) {
+                currentImageIndex = (currentImageIndex - 1 + currentGallery.length) % currentGallery.length;
+                updateGalleryImage();
+            }
+        }
+        function showNextImage(e) {
+            if(e) e.stopPropagation();
+            if(currentGallery.length > 1) {
+                currentImageIndex = (currentImageIndex + 1) % currentGallery.length;
+                updateGalleryImage();
+            }
+        }
+
+        if(mPrev) mPrev.addEventListener('click', showPrevImage);
+        if(mNext) mNext.addEventListener('click', showNextImage);
     </script>
 
   </body>
