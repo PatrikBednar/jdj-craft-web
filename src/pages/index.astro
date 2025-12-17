@@ -1006,6 +1006,9 @@ const projects = await Promise.all(projectsData.map(async (project) => {
         if(mPrev) mPrev.addEventListener('click', showPrevImage);
         if(mNext) mNext.addEventListener('click', showNextImage);
     </script>
-
+    <script>
+        import { inject } from '@vercel/analytics';
+        inject();
+    </script>
   </body>
 </html>
