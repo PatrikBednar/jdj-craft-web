@@ -1,7 +1,6 @@
 ---
 // src/pages/index.astro
 import Header from '../components/Header.astro';
-
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import ContactForm from '../components/ContactForm.astro';
@@ -26,11 +25,8 @@ import project1Img8 from '../assets/projectsImg/Project1/IMG_3449_lightbox.jpg';
 import project1Img9 from '../assets/projectsImg/Project1/IMG_3460_lightbox.jpg';
 import project1Img10 from '../assets/projectsImg/Project1/IMG_3480_lightbox.jpg';
 //projekt2
-
 //projekt3
-
 //projekt4
-
 
 const projectsData = [
   {
@@ -39,19 +35,10 @@ const projectsData = [
     category: "vodo-topo",
     shortDesc: "realizace vodo-topo",
     fullDesc: "Instalace nových rozvodů vody a topení v prostorách Ekoarmy. Práce obnášely natažení nového potrubí a finální kompletaci sanity. Namontovali jsme nová umyvadla, toalety a úklidové výlevky. Systém jsme doplnili o nový bojler pro ohřev vody a vše uvedli do plného provozu.",
-    
     mainImage: project1Img1,
     gallery: [
-        project1Img1, 
-        project1Img2,
-        project1Img3,
-        project1Img4,
-        project1Img5,
-        project1Img6,
-        project1Img7,
-        project1Img8,
-        project1Img9,
-        project1Img10
+        project1Img1, project1Img2, project1Img3, project1Img4, project1Img5,
+        project1Img6, project1Img7, project1Img8, project1Img9, project1Img10
     ]
   },
   {
@@ -85,42 +72,43 @@ const projectsData = [
   }
 ];
 
-// Optimalizace obrázků pomocí getImage
+// Optimalizace obrázků
 const projects = await Promise.all(projectsData.map(async (project) => {
-    // Pokud projekt nemá hlavní obrázek, vrátíme ho bez optimalizace
-    if (!project.mainImage) {
-        return {
-            ...project,
-            mainImage: '/placeholder.svg', // Cesta k zástupnému obrázku
-            gallery: []
-        };
+    let mainImageSrc = '/placeholder.svg';
+    let gallerySrcs: string[] = []; // ZDE OPRAVENO: Explicitní typ pro TypeScript
+
+    // 1. Hlavní obrázek
+    if (project.mainImage) {
+        const optimizedMain = await getImage({
+            src: project.mainImage,
+            format: 'webp',
+            width: 800,
+            height: 600,
+            fit: 'cover'
+        });
+        mainImageSrc = optimizedMain.src;
     }
 
-    // Optimalizace hlavního obrázku
-    const mainImageOptimized = await getImage({
-        src: project.mainImage,
-        format: 'webp',
-        width: 1200,
-        height: 800, // PŘIDÁNO: Výška je povinná pro externí URL. Poměr cca 3:2
-        fit: 'cover' // PŘIDÁNO: Zajistí, že se fotka ořízne a nedeformuje
-    });
-
-    // Optimalizace celé galerie (pro popup)
-    const galleryOptimized = await Promise.all(project.gallery.map(async (imgUrl) => {
-        const image = await getImage({
-            src: imgUrl,
-            format: 'webp',
-            width: 1600,
-            height: 1066, // PŘIDÁNO: Výška pro galerii (taky poměr 3:2)
-            fit: 'inside'
-        });
-        return image.src;
-    }));
+    // 2. Galerie
+    if (project.gallery && project.gallery.length > 0) {
+        gallerySrcs = await Promise.all(project.gallery.map(async (img) => {
+            const optImg = await getImage({
+                src: img,
+                format: 'webp',
+                width: 1200,
+                height: 800,
+                fit: 'inside'
+            });
+            return optImg.src;
+        }));
+    } else if (project.mainImage) {
+        gallerySrcs = [mainImageSrc];
+    }
 
     return {
         ...project,
-        mainImage: mainImageOptimized.src,
-        gallery: galleryOptimized
+        mainImage: mainImageSrc,
+        gallery: gallerySrcs
     };
 }));
 ---
@@ -128,14 +116,10 @@ const projects = await Promise.all(projectsData.map(async (project) => {
 <Layout>
   <Fragment slot="head">
     <title>JDJ-craft - Stavební práce, elektroinstalace a vodo-topo</title>
-    
     <meta name="description" content="Kompletní stavební práce, elektroinstalace a vodo-topo ve Zlínském kraji (Tichov, Valašské Klobouky, Vsetín). Stavby na klíč, rekonstrukce a opravy. Spolehlivost od roku 2025.">
-    
     <meta name="keywords" content="zedník, elektro, vodo-topo, rekonstrukce, stavba domu, Tichov, Valašské Klobouky, Vsetín, Zlínský kraj, Valašsko, elektrikář, instalatér, topenář, fasády, obklady">
-    
     <meta name="robots" content="index, follow">
     <meta name="author" content="JDJ-craft s.r.o.">
-
     <meta property="og:title" content="JDJ-craft s.r.o. | Stavby a rekonstrukce na Valašsku">
     <meta property="og:description" content="Hledáte spolehlivou firmu na stavbu či rekonstrukci? Provádíme zednické, elektrikářské a instalatérské práce. Tichov a okolí.">
     <meta property="og:type" content="website">
@@ -165,13 +149,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
       "email": "jdj-craft@seznam.cz",
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
         "opens": "07:00",
         "closes": "17:00"
       },
@@ -187,6 +165,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
     }
     </script>
   </Fragment>
+    
     <Header isHomepage={true} />
 
     <style>
@@ -197,6 +176,11 @@ const projects = await Promise.all(projectsData.map(async (project) => {
       .animate-marquee {
         animation: marquee 20s linear infinite;
       }
+      /* Scrollbar pro modal popis */
+      .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #555; }
     </style>
 
     <header class="relative h-screen flex items-center justify-center overflow-hidden bg-brand-black">
@@ -408,28 +392,36 @@ const projects = await Promise.all(projectsData.map(async (project) => {
             </div>
 
             <div id="projekty-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    {projects.map((project, index) => (
-        <div
-            class={`group cursor-pointer project-card ${project.hidden ? 'hidden project-hidden' : ''}`}
-            data-project={JSON.stringify(project)}
-        >
-            <div class="relative h-[400px] rounded-sm overflow-hidden bg-brand-black border border-black/10 shadow-lg">
-                <Image 
-                    src={project.mainImage} 
-                    alt={project.title}
-                    width={800}
-                    height={600}
-                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 ease-out"
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-8 w-full">
-                    <span class="text-white/80 font-heading font-bold text-xs uppercase tracking-wider">{project.category}</span>
-                    <h3 class="text-2xl font-heading font-bold text-white uppercase mt-1">{project.title}</h3>
-                </div>
+                {projects.map((project, index) => (
+                    <div 
+                        class={`group cursor-pointer project-card ${project.hidden ? 'hidden project-hidden' : ''}`}
+                        data-index={index} 
+                    >
+                        <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
+                            <img 
+                                src={project.mainImage} 
+                                alt={project.title} 
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" 
+                            />
+                            <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">
+                                {project.category}
+                            </div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none">
+                                <div class="bg-white/90 text-brand-black p-3 rounded-full shadow-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">
+                            {project.title}
+                        </h3>
+                        <p class="text-gray-600 mt-2">{project.shortDesc}</p>
+                    </div>
+                ))}
             </div>
-        </div>
-    ))}
-</div>
 
             <div class="text-center mt-16">
                 <button id="zobrazit-dalsi-btn" class="inline-block bg-brand-black hover:bg-brand-accent text-white font-semibold py-3 px-8 rounded-sm transition-all duration-300 uppercase font-heading tracking-wider shadow-lg">
@@ -559,34 +551,188 @@ const projects = await Promise.all(projectsData.map(async (project) => {
         </div>
     </section>
 
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/90 transition-opacity opacity-0" id="modal-backdrop"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                
+                <div class="relative transform overflow-hidden rounded-sm bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-7xl opacity-0 scale-95" id="modal-panel">
+                    
+                    <button type="button" id="close-modal-btn" class="absolute top-4 right-4 z-50 bg-white/50 hover:bg-white rounded-full p-2 transition-colors cursor-pointer">
+                        <svg class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+
+                    <div class="flex flex-col-reverse md:flex-row h-full items-stretch">
+                        <div id="modal-image-container" class="md:w-3/5 bg-neutral-900 relative group w-full aspect-[4/5] md:aspect-auto md:h-[80vh] transition-all duration-300">
+                            
+                            <img id="modal-image" src="" alt="Ukázka z realizace" class="absolute inset-0 w-full h-full object-contain">
+                            <button id="prev-image" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm cursor-pointer z-20">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+                            </button>
+                            <button id="next-image" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm cursor-pointer z-20">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                            </button>
+                            
+                            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 px-4 py-1.5 rounded-full text-white text-sm backdrop-blur-md">
+                                <span id="current-index">1</span> / <span id="total-images">1</span>
+                            </div>
+                        </div>
+
+                        <div class="md:w-2/5 p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-white">
+                            <span id="modal-category" class="text-gray-400 font-heading font-bold tracking-[0.2em] uppercase text-sm mb-4"></span>
+                            <h3 id="modal-title" class="text-3xl md:text-4xl font-heading font-bold text-brand-black uppercase mb-8 leading-tight"></h3>
+                            <div class="prose prose-lg text-gray-600 mb-10 flex-grow overflow-y-auto max-h-[400px] pr-4 custom-scrollbar">
+                                <p id="modal-desc" class="leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <Footer />
 
     <script define:vars={{ projects }} is:inline>
-      // This script handles the "Show More/Less" functionality for projects.
-      const showMoreBtn = document.getElementById('zobrazit-dalsi-btn');
-      const showLessBtn = document.getElementById('skryt-projekty-btn');
-      const hiddenProjects = document.querySelectorAll('.project-hidden');
+        // --- LOGIKA "Zobrazit další" ---
+        const showMoreBtn = document.getElementById('zobrazit-dalsi-btn');
+        const showLessBtn = document.getElementById('skryt-projekty-btn');
+        const hiddenProjects = document.querySelectorAll('.project-hidden');
 
-      if (showMoreBtn && showLessBtn) {
-          showMoreBtn.addEventListener('click', () => {
-              hiddenProjects.forEach(el => {
-                  el.classList.remove('hidden');
-                  el.classList.add('animate-fade-in-up');
-              });
-              showMoreBtn.classList.add('hidden');
-              showLessBtn.classList.remove('hidden');
-          });
+        if (showMoreBtn && showLessBtn) {
+            if (hiddenProjects.length === 0) {
+                showMoreBtn.style.display = 'none';
+            }
 
-          showLessBtn.addEventListener('click', () => {
-              hiddenProjects.forEach(el => {
-                  el.classList.add('hidden');
-                  el.classList.remove('animate-fade-in-up');
-              });
-              showLessBtn.classList.add('hidden');
-              showMoreBtn.classList.remove('hidden');
-              document.getElementById('realizace')?.scrollIntoView({ behavior: 'smooth' });
-          });
-      }
+            showMoreBtn.addEventListener('click', () => {
+                hiddenProjects.forEach(el => {
+                    el.classList.remove('hidden');
+                    el.classList.add('animate-fade-in-up');
+                });
+                showMoreBtn.classList.add('hidden');
+                showLessBtn.classList.remove('hidden');
+            });
+
+            showLessBtn.addEventListener('click', () => {
+                hiddenProjects.forEach(el => {
+                    el.classList.add('hidden');
+                    el.classList.remove('animate-fade-in-up');
+                });
+                showLessBtn.classList.add('hidden');
+                showMoreBtn.classList.remove('hidden');
+                document.getElementById('realizace')?.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // --- LOGIKA MODAL ---
+        const modal = document.getElementById('project-modal');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        const modalPanel = document.getElementById('modal-panel');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        const mImage = document.getElementById('modal-image');
+        const mImageContainer = document.getElementById('modal-image-container');
+        const mTitle = document.getElementById('modal-title');
+        const mCategory = document.getElementById('modal-category');
+        const mDesc = document.getElementById('modal-desc');
+        const mPrev = document.getElementById('prev-image');
+        const mNext = document.getElementById('next-image');
+        const mCurrentIdx = document.getElementById('current-index');
+        const mTotalImg = document.getElementById('total-images');
+
+        let currentGallery = [];
+        let currentImageIndex = 0;
+
+        function openModal(index) {
+            const data = projects[index];
+            if(!data) return;
+
+            mTitle.textContent = data.title;
+            mCategory.textContent = data.category;
+            mDesc.textContent = data.fullDesc;
+
+            if (data.gallery && data.gallery.length > 0) {
+                currentGallery = data.gallery;
+            } else {
+                currentGallery = [data.mainImage];
+            }
+            
+            currentImageIndex = 0;
+            updateGalleryImage();
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'scale-95');
+            }, 50);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function updateGalleryImage() {
+            if(currentGallery.length > 0) {
+                if (mImage) {
+                    mImage.src = currentGallery[currentImageIndex]; // Jen nastavíme zdroj, o zbytek se postará CSS
+                }
+            }
+            mCurrentIdx.textContent = currentImageIndex + 1;
+            mTotalImg.textContent = currentGallery.length;
+
+            if (currentGallery.length <= 1) {
+                mPrev.style.display = 'none';
+                mNext.style.display = 'none';
+            } else {
+                mPrev.style.display = 'block';
+                mNext.style.display = 'block';
+            }
+        }
+
+        function showPrevImage(e) {
+            if(e) e.stopPropagation();
+            if (currentGallery.length > 1) {
+                currentImageIndex = (currentImageIndex - 1 + currentGallery.length) % currentGallery.length;
+                updateGalleryImage();
+            }
+        }
+
+        function showNextImage(e) {
+            if(e) e.stopPropagation();
+            if (currentGallery.length > 1) {
+                currentImageIndex = (currentImageIndex + 1) % currentGallery.length;
+                updateGalleryImage();
+            }
+        }
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const index = parseInt(card.dataset.index);
+                openModal(index);
+            });
+        });
+
+        if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if(modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+        if(mPrev) mPrev.addEventListener('click', showPrevImage);
+        if(mNext) mNext.addEventListener('click', showNextImage);
+
+        document.addEventListener('keydown', (e) => {
+            if (modal.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') showPrevImage();
+            if (e.key === 'ArrowRight') showNextImage();
+        });
     </script>
-    <script type="module" src="../scripts/modal.js" define:vars={{ projects }}></script>
 </Layout>
