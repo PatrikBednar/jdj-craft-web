@@ -1,37 +1,19 @@
 ---
 // src/pages/hruba-stavba.astro
 import Header from '../components/Header.astro';
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
 
 import { Image } from 'astro:assets';
 import heroImg from '../assets/mainpage/heroImg/hruba-stavba.jpg'; // Ujistěte se, že cesta sedí
 ---
 
-<html lang="cs" class="scroll-smooth">
-  <head>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2T6BZG4P9V"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-2T6BZG4P9V');
-    </script>
-
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+<Layout>
+  <Fragment slot="head">
     <meta name="description" content="Kompletní realizace hrubých staveb a domů na klíč. Od výkopových prací přes základovou desku až po střechu. JDJ-craft">
     <title>Hrubá stavba | JDJ-craft</title>
-    
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    
-    <meta name="theme-color" content="#0a0a0a">
-  </head>
-  
-  <body class="bg-brand-black text-gray-100 font-body antialiased selection:bg-gray-300 selection:text-brand-black">
+  </Fragment>
 
     <Header />
 
@@ -169,56 +151,11 @@ import heroImg from '../assets/mainpage/heroImg/hruba-stavba.jpg'; // Ujistěte 
                     </div>
                 </div>
 
-                <div class="bg-gray-50 p-8 md:p-10 lg:p-12 rounded-sm shadow-2xl border border-gray-100">
-                    <h3 class="text-2xl font-heading font-bold text-brand-black uppercase mb-6">Zanechte nám vzkaz</h3>
-                    <form action="https://formspree.io/f/mnjaaarw" method="POST">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="sr-only">Jméno a příjmení</label>
-                                <input type="text" name="name" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Jméno a příjmení">
-                            </div>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="sr-only">Telefon</label>
-                                    <input type="tel" name="phone" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Telefon">
-                                </div>
-                                <div>
-                                    <label class="sr-only">Email</label>
-                                    <input type="email" name="email" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Váš email">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="sr-only">Zpráva</label>
-                                <textarea rows="4" name="message" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400 resize-none" placeholder="Mám zájem o hrubou stavbu..."></textarea>
-                            </div>
-
-                            <button type="submit" class="w-full bg-brand-black hover:bg-brand-accent text-white font-heading font-bold uppercase tracking-wider py-4 rounded-sm transition-all duration-300 shadow-lg transform hover:-translate-y-1">
-                                Odeslat poptávku
-                            </button>
-                            <p class="text-xs text-gray-400 text-center mt-4">
-                                Odesláním souhlasíte se zpracováním osobních údajů.
-                            </p>
-                        </div>
-                    </form>
-                </div>
+                <ContactForm defaultMessage="Mám zájem o hrubou stavbu..." />
 
             </div>
         </div>
     </section>
 
-    <footer class="bg-brand-black py-8 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-600 text-sm">
-                &copy; <span id="copyright-year">2025</span> JDJ-craft s.r.o. | Všechna práva vyhrazena.
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        import { inject } from '@vercel/analytics';
-        inject();
-    </script>
-  </body>
-</html>
+    <Footer />
+</Layout>

@@ -2,6 +2,9 @@
 // src/pages/index.astro
 import Header from '../components/Header.astro';
 
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { Image, getImage } from 'astro:assets';
 
 import domyImg from '../assets/mainpage/domy-na-klic.jpg';
@@ -122,22 +125,8 @@ const projects = await Promise.all(projectsData.map(async (project) => {
 }));
 ---
 
-
-<html lang="cs" class="scroll-smooth">
-  <head>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2T6BZG4P9V"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-2T6BZG4P9V');
-    </script>
-
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#0a0a0a">
-    
+<Layout>
+  <Fragment slot="head">
     <title>JDJ-craft - Stavební práce, elektroinstalace a vodo-topo</title>
     
     <meta name="description" content="Kompletní stavební práce, elektroinstalace a vodo-topo ve Zlínském kraji (Tichov, Valašské Klobouky, Vsetín). Stavby na klíč, rekonstrukce a opravy. Spolehlivost od roku 2025.">
@@ -152,14 +141,6 @@ const projects = await Promise.all(projectsData.map(async (project) => {
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.jdj-craft.cz/"> 
     <meta property="og:image" content="/og-image.jpg"> 
-
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;600;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-
     <script type="application/ld+json" is:inline>
     {
       "@context": "https://schema.org",
@@ -205,10 +186,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
       "priceRange": "$$"
     }
     </script>
-</head>
-  
-  <body class="bg-brand-black text-gray-100 font-body antialiased selection:bg-gray-300 selection:text-brand-black">
-
+  </Fragment>
     <Header isHomepage={true} />
 
     <style>
@@ -430,36 +408,28 @@ const projects = await Promise.all(projectsData.map(async (project) => {
             </div>
 
             <div id="projekty-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {projects.map((project) => (
-                    <div 
-                        class={`group cursor-pointer project-card ${project.hidden ? 'hidden project-hidden' : ''}`}
-                        data-project={JSON.stringify(project)}
-                    >
-                        <div class="relative h-[400px] overflow-hidden rounded-sm mb-4 shadow-xl">
-                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10"></div>
-                            <img 
-                                src={project.mainImage} 
-                                alt={project.title} 
-                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out" 
-                            />
-                            <div class="absolute top-4 left-4 z-20 bg-brand-black text-white text-xs font-heading uppercase px-3 py-1">
-                                {project.category}
-                            </div>
-                            <div class="absolute inset-0 flex items-center justify-center opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none">
-                                <div class="bg-white/90 text-brand-black p-3 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        <h3 class="text-2xl font-heading font-bold text-brand-black group-hover:text-brand-accent transition-colors">
-                            {project.title}
-                        </h3>
-                        <p class="text-gray-600 mt-2">{project.shortDesc}</p>
-                    </div>
-                ))}
+    {projects.map((project, index) => (
+        <div
+            class={`group cursor-pointer project-card ${project.hidden ? 'hidden project-hidden' : ''}`}
+            data-project={JSON.stringify(project)}
+        >
+            <div class="relative h-[400px] rounded-sm overflow-hidden bg-brand-black border border-black/10 shadow-lg">
+                <Image 
+                    src={project.mainImage} 
+                    alt={project.title}
+                    width={800}
+                    height={600}
+                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 w-full">
+                    <span class="text-white/80 font-heading font-bold text-xs uppercase tracking-wider">{project.category}</span>
+                    <h3 class="text-2xl font-heading font-bold text-white uppercase mt-1">{project.title}</h3>
+                </div>
             </div>
+        </div>
+    ))}
+</div>
 
             <div class="text-center mt-16">
                 <button id="zobrazit-dalsi-btn" class="inline-block bg-brand-black hover:bg-brand-accent text-white font-semibold py-3 px-8 rounded-sm transition-all duration-300 uppercase font-heading tracking-wider shadow-lg">
@@ -575,52 +545,13 @@ const projects = await Promise.all(projectsData.map(async (project) => {
                     </div>
                 </div>
 
-                <div class="lg:col-span-7">
+                <div class="lg:col-span-7 flex flex-col">
                     <div class="bg-gray-50 rounded-sm overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row h-full">
-                        
                         <div class="md:w-1/2 relative min-h-[250px] md:min-h-full">
-                            <Image 
-                                src={kontaktImg} 
-                                alt="Kontaktujte nás" 
-                                class="absolute inset-0 w-full h-full object-cover object-[55%_center]"
-                                format={'webp'}
-                            />
+                            <Image src={kontaktImg} alt="Kontaktujte nás" class="absolute inset-0 w-full h-full object-cover object-[55%_center]" format={'webp'} />
                             <div class="absolute inset-0 bg-brand-black/10"></div>
                         </div>
-
-                        <div class="md:w-1/2 p-8 md:p-10 lg:p-12">
-                            <h3 class="text-2xl font-heading font-bold text-brand-black uppercase mb-6">Zanechte nám vzkaz</h3>
-                            <form action="https://formspree.io/f/mnjaaarw" method="POST">
-    <div class="space-y-4">
-        <div>
-            <label class="sr-only">Jméno a příjmení</label>
-            <input type="text" name="name" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Jméno a příjmení">
-        </div>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-                <label class="sr-only">Telefon</label>
-                <input type="tel" name="phone" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Telefon">
-            </div>
-            <div>
-                <label class="sr-only">Email</label>
-                <input type="email" name="email" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400" placeholder="Váš email">
-            </div>
-        </div>
-
-        <div>
-            <label class="sr-only">Zpráva</label>
-            <textarea rows="4" name="message" required class="w-full bg-white border border-gray-200 text-brand-black px-4 py-3 focus:outline-none focus:border-brand-black focus:ring-1 focus:ring-brand-black transition-all rounded-sm placeholder-gray-400 resize-none" placeholder="Mám zájem o rekonstrukci..."></textarea>
-        </div>
-
-        <button type="submit" class="w-full bg-brand-black hover:bg-brand-accent text-white font-heading font-bold uppercase tracking-wider py-4 rounded-sm transition-all duration-300 shadow-lg transform hover:-translate-y-1">
-            Odeslat poptávku
-        </button>
-        <p class="text-xs text-gray-400 text-center mt-4">
-            Odesláním souhlasíte se zpracováním osobních údajů.
-        </p>
-    </div>
-</form>
+                        <ContactForm defaultMessage="Mám zájem o rekonstrukci..." />
                         </div>
                     </div>
                 </div>
@@ -628,210 +559,34 @@ const projects = await Promise.all(projectsData.map(async (project) => {
         </div>
     </section>
 
-    <div id="project-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-black/90 transition-opacity opacity-0" id="modal-backdrop"></div>
+    <Footer />
 
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-                
-                <div class="relative transform overflow-hidden rounded-sm bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-7xl opacity-0 scale-95" id="modal-panel">
-                    
-                    <button type="button" id="close-modal-btn" class="absolute top-4 right-4 z-50 text-gray-400 hover:text-brand-black transition-colors bg-white/50 hover:bg-white rounded-full p-2">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+    <script define:vars={{ projects }} is:inline>
+      // This script handles the "Show More/Less" functionality for projects.
+      const showMoreBtn = document.getElementById('zobrazit-dalsi-btn');
+      const showLessBtn = document.getElementById('skryt-projekty-btn');
+      const hiddenProjects = document.querySelectorAll('.project-hidden');
 
-                    <div class="flex flex-col-reverse md:flex-row h-full items-stretch">
-                        <div id="modal-image-container" class="md:w-3/5 bg-neutral-900 relative group aspect-[4/5] md:aspect-auto md:min-h-[600px] bg-cover bg-center bg-no-repeat">
-                            
-                            <button id="prev-image" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
-                            </button>
-                            <button id="next-image" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white p-3 rounded-full backdrop-blur-sm transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-                            </button>
-                            
-                            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/50 px-4 py-1.5 rounded-full text-white text-sm backdrop-blur-md">
-                                <span id="current-index">1</span> / <span id="total-images">1</span>
-                            </div>
-                        </div>
+      if (showMoreBtn && showLessBtn) {
+          showMoreBtn.addEventListener('click', () => {
+              hiddenProjects.forEach(el => {
+                  el.classList.remove('hidden');
+                  el.classList.add('animate-fade-in-up');
+              });
+              showMoreBtn.classList.add('hidden');
+              showLessBtn.classList.remove('hidden');
+          });
 
-                        <div class="md:w-2/5 p-8 md:p-12 lg:p-16 flex flex-col justify-center bg-white">
-                            <span id="modal-category" class="text-gray-400 font-heading font-bold tracking-[0.2em] uppercase text-sm mb-4"></span>
-                            
-                            <h3 id="modal-title" class="text-3xl md:text-4xl font-heading font-bold text-brand-black uppercase mb-8 leading-tight"></h3>
-                            
-                            <div class="prose prose-lg text-gray-600 mb-10 flex-grow overflow-y-auto max-h-[400px] pr-4 custom-scrollbar">
-                                <p id="modal-desc" class="leading-relaxed"></p>
-                            </div>
-                            
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="bg-brand-black py-8 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-600 text-sm">
-                &copy; <span id="copyright-year">2025</span> JDJ-craft s.r.o. | Všechna práva vyhrazena.
-            </p>
-        </div>
-    </footer>
-
-    <script is:inline>
-        const yearEl = document.getElementById('copyright-year');
-        if (yearEl) {
-            yearEl.textContent = new Date().getFullYear().toString();
-        }
-
-        // LOGIKA PRO ZOBRAZENÍ DALŠÍCH PROJEKTŮ
-        const showMoreBtnRealizace = document.getElementById('zobrazit-dalsi-btn');
-        const showLessBtnRealizace = document.getElementById('skryt-projekty-btn');
-        const hiddenProjectsRealizace = document.querySelectorAll('.project-hidden');
-        
-        if (showMoreBtnRealizace && showLessBtnRealizace && hiddenProjectsRealizace.length > 0) {
-            // Pokud nejsou žádné skryté projekty, tlačítko rovnou skryjeme
-            // if(hiddenProjectsRealizace.length === 0) {
-            //     showMoreBtnRealizace.style.display = 'none';
-            // }
-
-            showMoreBtnRealizace.addEventListener('click', () => {
-                hiddenProjectsRealizace.forEach(el => {
-                    el.classList.remove('hidden');
-                    // Malá animace pro hladký náběh
-                    el.classList.add('animate-fade-in-up');
-                });
-                showMoreBtnRealizace.classList.add('hidden');
-                showLessBtnRealizace.classList.remove('hidden');
-            });
-
-            showLessBtnRealizace.addEventListener('click', () => {
-                hiddenProjectsRealizace.forEach(el => {
-                    el.classList.add('hidden');
-                    el.classList.remove('animate-fade-in-up');
-                });
-                showLessBtnRealizace.classList.add('hidden');
-                showMoreBtnRealizace.classList.remove('hidden');
-                const realizaceSection = document.getElementById('realizace');
-                if (realizaceSection) realizaceSection.scrollIntoView({ behavior: 'smooth' });
-            });
-        }
-
-        // LOGIKA PRO MODAL (POPUP)
-        const modal = document.getElementById('project-modal');
-        const modalBackdrop = document.getElementById('modal-backdrop');
-        const modalPanel = document.getElementById('modal-panel');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const projectCards = document.querySelectorAll('.project-card');
-        
-        // Elementy v modalu
-        const mImageContainer = document.getElementById('modal-image-container');
-        const mTitle = document.getElementById('modal-title');
-        const mCategory = document.getElementById('modal-category');
-        const mDesc = document.getElementById('modal-desc');
-        const mPrev = document.getElementById('prev-image');
-        const mNext = document.getElementById('next-image');
-        const mCurrentIdx = document.getElementById('current-index');
-        const mTotalImg = document.getElementById('total-images');
-
-        let currentGallery = [];
-        let currentImageIndex = 0;
-
-        function openModal(data) {
-            // Naplnění daty
-            mTitle.textContent = data.title;
-            mCategory.textContent = data.category;
-            mDesc.textContent = data.fullDesc;
-            
-            // Galerie
-            currentGallery = data.gallery && data.gallery.length > 0 ? data.gallery : [data.mainImage];
-            currentImageIndex = 0;
-            updateGalleryImage();
-
-            // Zobrazení modalu
-            modal.classList.remove('hidden');
-            // Timeout pro animaci
-            setTimeout(() => {
-                modalBackdrop.classList.remove('opacity-0');
-                modalPanel.classList.remove('opacity-0', 'scale-95');
-            }, 10);
-            document.body.style.overflow = 'hidden'; // Zamezí scrollování stránky
-        }
-
-        function closeModal() {
-            modalBackdrop.classList.add('opacity-0');
-            modalPanel.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
-        }
-
-        function updateGalleryImage() {
-            mImageContainer.style.backgroundImage = `url('${currentGallery[currentImageIndex]}')`;
-            mCurrentIdx.textContent = currentImageIndex + 1;
-            mTotalImg.textContent = currentGallery.length;
-            
-            // Skrytí šipek pokud je jen jedna fotka
-            if(currentGallery.length <= 1) {
-                mPrev.style.display = 'none';
-                mNext.style.display = 'none';
-            } else {
-                mPrev.style.display = 'block';
-                mNext.style.display = 'block';
-            }
-        }
-
-        // Event Listenery pro karty
-        projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const data = JSON.parse(card.dataset.project);
-                openModal(data);
-            });
-        });
-
-        // Event Listenery pro Modal
-        if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-        if(modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
-        
-        // Klávesa ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-                closeModal();
-            }
-            // Šipky pro galerii
-            if (!modal.classList.contains('hidden')) {
-                if (e.key === 'ArrowLeft') showPrevImage();
-                if (e.key === 'ArrowRight') showNextImage();
-            }
-        });
-
-        // Galerie navigace
-        function showPrevImage(e) {
-            if(e) e.stopPropagation();
-            if(currentGallery.length > 1) {
-                currentImageIndex = (currentImageIndex - 1 + currentGallery.length) % currentGallery.length;
-                updateGalleryImage();
-            }
-        }
-        function showNextImage(e) {
-            if(e) e.stopPropagation();
-            if(currentGallery.length > 1) {
-                currentImageIndex = (currentImageIndex + 1) % currentGallery.length;
-                updateGalleryImage();
-            }
-        }
-
-        if(mPrev) mPrev.addEventListener('click', showPrevImage);
-        if(mNext) mNext.addEventListener('click', showNextImage);
+          showLessBtn.addEventListener('click', () => {
+              hiddenProjects.forEach(el => {
+                  el.classList.add('hidden');
+                  el.classList.remove('animate-fade-in-up');
+              });
+              showLessBtn.classList.add('hidden');
+              showMoreBtn.classList.remove('hidden');
+              document.getElementById('realizace')?.scrollIntoView({ behavior: 'smooth' });
+          });
+      }
     </script>
-    <script>
-        import { inject } from '@vercel/analytics';
-        inject();
-    </script>
-  </body>
-</html>
+    <script type="module" src="../scripts/modal.js" define:vars={{ projects }}></script>
+</Layout>

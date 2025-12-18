@@ -1,0 +1,18 @@
+---
+// src/components/Footer.astro
+---
+
+<footer class="bg-brand-black py-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-gray-600 text-sm">
+            &copy; <span id="copyright-year"></span> JDJ-craft s.r.o. | Všechna práva vyhrazena.
+        </p>
+    </div>
+</footer>
+
+<script is:inline>
+    const yearEl = document.getElementById('copyright-year');
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear().toString();
+    }
+</script>

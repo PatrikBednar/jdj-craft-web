@@ -1,14 +1,42 @@
 <!doctype html>
-<html lang="en">
+<html lang="cs" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<!-- Google Analytics -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2T6BZG4P9V"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2T6BZG4P9V');
+    </script>
+
+		<!-- Favicons -->
+		<link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+		<!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+		<!-- Theme Color -->
+    <meta name="theme-color" content="#0a0a0a">
+
+		<!-- Slot for page-specific head content (title, description, keywords, OG tags, JSON-LD) -->
+		<slot name="head" />
+
 	</head>
-	<body>
+	<body class="bg-brand-black text-gray-100 font-body antialiased selection:bg-gray-300 selection:text-brand-black">
 		<slot />
+		<!-- Vercel Analytics - global -->
+		<script>
+        import { inject } from '@vercel/analytics';
+        inject();
+    </script>
 	</body>
 </html>
 
@@ -18,5 +46,23 @@
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+	/* Custom scrollbar for modal description */
+	.custom-scrollbar::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	.custom-scrollbar::-webkit-scrollbar-track {
+		background: #f1f1f1;
+		border-radius: 10px;
+	}
+
+	.custom-scrollbar::-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 10px;
+	}
+
+	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+		background: #555;
 	}
 </style>

@@ -1,38 +1,22 @@
 ---
 // src/pages/elektroinstalace.astro
 import Header from '../components/Header.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import Layout from '../layouts/Layout.astro';
 
 import { Image } from 'astro:assets';
 import heroImg from '../assets/mainpage/heroImg/elektroinstalace.jpg'; // Ujistěte se, že cesta sedí, případně použijte URL jako v originále
 ---
 
 <html lang="cs" class="scroll-smooth">
-  <head>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2T6BZG4P9V"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-2T6BZG4P9V');
-    </script>
-
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+<Layout>
+  <Fragment slot="head">
     <meta name="description" content="Profesionální elektroinstalace, revize, přípojky, chytré domácnosti a osvětlení. JDJ-craft">
     <title>Elektroinstalace | JDJ-craft</title>
     
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    
-    <meta name="theme-color" content="#0a0a0a">
-  </head>
+  </Fragment>
   
-  <body class="bg-brand-black text-gray-100 font-body antialiased selection:bg-gray-300 selection:text-brand-black">
-
     <Header />
 
     <header class="relative h-[60vh] flex items-center justify-center overflow-hidden bg-brand-black">
