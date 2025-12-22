@@ -10,7 +10,8 @@ import domyImg from '../assets/mainpage/domy-na-klic.jpg';
 import vodoImg from '../assets/mainpage/vodo-topo.jpg';
 import elektroImg from '../assets/mainpage/elektro.jpg';
 import zednickeImg from '../assets/mainpage/zednicke-prace.jpg';
-import mainImage from '../assets/mainpage/main-image.jpg';
+import mainImage from '../assets/mainpage/main-image3.jpg';
+import mainImageMobile from '../assets/mainpage/main-image3-mobile.jpg';
 import kontaktImg from '../assets/mainpage/kontakt-image.jpg';
 
 //projekt1
@@ -75,7 +76,7 @@ const projectsData = [
     title: "Modernizace koupelny",
     category: "rekonstrukce",
     shortDesc: "rekonstrukce koupelny",
-    fullDesc: "Kompletní rekonstrukce koupelny v bytovém domě. Projekt zahrnoval demontáž starých obkladů, dlažeb a sanitárního vybavení, následovanou instalací nových rozvodů vody a odpadu. Byla provedena pokládka moderních obkladů a dlažeb, montáž umyvadla a toalety. Cílem bylo vytvořit funkční a esteticky příjemné koupelnové prostředí.",
+    fullDesc: "Kompletní rekonstrukce koupelny v bytovém domě. Projekt zahrnoval demontáž starých obkladů, dlažeb a sanitárního vybavení, následovanou instalací nových rozvodů vody a odpadu. Byla provedena pokládka moderních obkladů a dlažeb, montáž sprchového koutu, umyvadla a toalety. Cílem bylo vytvořit funkční a esteticky příjemné koupelnové prostředí.",
     mainImage: project4Img1,
     gallery: [
         project4Img1, project4Img2
@@ -87,7 +88,7 @@ const projectsData = [
 // Optimalizace obrázků
 const projects = await Promise.all(projectsData.map(async (project) => {
     let mainImageSrc = '/placeholder.svg';
-    let gallerySrcs: string[] = []; // ZDE OPRAVENO: Explicitní typ pro TypeScript
+    let gallerySrcs: string[] = [];
 
     // 1. Hlavní obrázek
     if (project.mainImage) {
@@ -200,10 +201,19 @@ const projects = await Promise.all(projectsData.map(async (project) => {
 
     <header class="relative h-screen flex items-center justify-center overflow-hidden bg-brand-black">
       <div class="absolute inset-0 z-0">
+        <!-- Desktop Image -->
         <Image 
             src={mainImage} 
             alt="Stavba domu na klíč" 
-            class="w-full h-full object-cover object-top"
+            class="hidden md:block w-full h-full object-cover object-top"
+            format={'webp'} 
+            quality={80} 
+        />
+        <!-- Mobile Image -->
+        <Image 
+            src={mainImageMobile} 
+            alt="Stavba domu na klíč" 
+            class="block md:hidden w-full h-full object-cover object-center"
             format={'webp'} 
             quality={80} 
         />
