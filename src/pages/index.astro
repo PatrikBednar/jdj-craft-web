@@ -25,8 +25,14 @@ import project1Img8 from '../assets/projectsImg/Project1/IMG_3449_lightbox.jpg';
 import project1Img9 from '../assets/projectsImg/Project1/IMG_3460_lightbox.jpg';
 import project1Img10 from '../assets/projectsImg/Project1/IMG_3480_lightbox.jpg';
 //projekt2
+import project2Img1 from '../assets/projectsImg/Project2/JasennaByt1.jpeg';
+import project2Img2 from '../assets/projectsImg/Project2/JasennaByt2.jpeg';
 //projekt3
+import project3Img1 from '../assets/projectsImg/Project3/MUVK1.jpeg';
+import project3Img2 from '../assets/projectsImg/Project3/MUVK2.jpeg';
 //projekt4
+import project4Img1 from '../assets/projectsImg/Project4/BytSurovec1.jpeg';
+import project4Img2 from '../assets/projectsImg/Project4/BytSurovec2.jpeg';
 
 const projectsData = [
   {
@@ -43,31 +49,37 @@ const projectsData = [
   },
   {
     id: "projekt-2",
-    title: "Projekt2",
-    category: "Projekt2",
-    shortDesc: "Projekt2",
-    fullDesc: "Popis projektu 2",
-    mainImage: "",
-    gallery: []
+    title: "Renovace bytového jádra Jasenná",
+    category: "rekonstrukce",
+    shortDesc: "rekonstrukce koupelny",
+    fullDesc: "Kompletní renovace bytového jádra v panelovém domě v Jasenné. Projekt zahrnoval demontáž starých obkladů, dlažeb a sanitárního vybavení, následovanou instalací nových rozvodů vody a odpadu. Byla provedena pokládka moderních obkladů a dlažeb, montáž nového sprchového koutu, umyvadla a toalety. Cílem bylo vytvořit funkční a esteticky příjemné koupelnové prostředí.",
+    mainImage: project2Img1,
+    gallery: [
+        project2Img1, project2Img2
+    ]
   },
   {
     id: "projekt-3",
-    title: "Projekt3",
-    category: "Projekt3",
-    shortDesc: "Projekt3",
-    fullDesc: "Popis projektu 3",
-    mainImage: "",
-    gallery: [],
+    title: "Sociální zařízení MÚ Valašské Klobouky",
+    category: "rekonstrukce",
+    shortDesc: "rekonstrukce sociálního zařízení",
+    fullDesc: "Modernizace sociálního zařízení na Městském úřadě ve Valašských Kloboukách. Součástí prací byla kompletní výměna stávajících instalací za nové, včetně montáže moderních sanitárních zařízení a obkladů. Cílem bylo vytvořit funkční a esteticky příjemné prostředí pro návštěvníky úřadu.",
+    mainImage: project3Img2,
+    gallery: [
+        project3Img2
+    ],
     hidden: true
   },
   {
     id: "projekt-4",
-    title: "Projekt4",
-    category: "Projekt4",
-    shortDesc: "Projekt4",
-    fullDesc: "Popis projektu 4",
-    mainImage: "",
-    gallery: [],
+    title: "Modernizace koupelny",
+    category: "rekonstrukce",
+    shortDesc: "rekonstrukce koupelny",
+    fullDesc: "Kompletní rekonstrukce koupelny v bytovém domě. Projekt zahrnoval demontáž starých obkladů, dlažeb a sanitárního vybavení, následovanou instalací nových rozvodů vody a odpadu. Byla provedena pokládka moderních obkladů a dlažeb, montáž umyvadla a toalety. Cílem bylo vytvořit funkční a esteticky příjemné koupelnové prostředí.",
+    mainImage: project4Img1,
+    gallery: [
+        project4Img1, project4Img2
+    ],
     hidden: true
   }
 ];
@@ -116,6 +128,8 @@ const projects = await Promise.all(projectsData.map(async (project) => {
 <Layout>
   <Fragment slot="head">
     <title>JDJ-craft - Stavební práce, elektroinstalace a vodo-topo</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="description" content="Kompletní stavební práce, elektroinstalace a vodo-topo ve Zlínském kraji (Tichov, Valašské Klobouky, Vsetín). Stavby na klíč, rekonstrukce a opravy. Spolehlivost od roku 2025.">
     <meta name="keywords" content="zedník, elektro, vodo-topo, rekonstrukce, stavba domu, Tichov, Valašské Klobouky, Vsetín, Zlínský kraj, Valašsko, elektrikář, instalatér, topenář, fasády, obklady">
     <meta name="robots" content="index, follow">
@@ -492,7 +506,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
                 
-                <div class="lg:col-span-5 flex flex-col justify-center">
+                <div class="lg:col-span-4 flex flex-col justify-center">
                     <span class="text-brand-black font-heading font-bold tracking-widest uppercase text-sm">Máte projekt?</span>
                     <h2 class="text-4xl md:text-5xl font-heading font-bold text-brand-black mt-2 uppercase mb-6">Napište nám</h2>
                     <p class="text-gray-600 mb-10 text-lg leading-relaxed">
@@ -538,7 +552,7 @@ const projects = await Promise.all(projectsData.map(async (project) => {
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 flex flex-col">
+                <div class="lg:col-span-8 flex flex-col">
                     <div class="bg-gray-50 rounded-sm overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row h-full">
                         <div class="md:w-1/2 relative min-h-[250px] md:min-h-full">
                             <Image src={kontaktImg} alt="Kontaktujte nás" class="absolute inset-0 w-full h-full object-cover object-[55%_center]" format={'webp'} />

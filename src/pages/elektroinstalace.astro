@@ -116,7 +116,7 @@ import heroImg from '../assets/mainpage/heroImg/elektroinstalace.jpg'; // Ujist�
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-heading font-bold text-white uppercase mb-12 text-center">Ukázky z realizací</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Zde budou v budoucnu obrázky -->
+                <p class="text-center text-gray-400 py-12 col-span-full">Připravujeme...</p>
             </div>
         </div>
     </section>
@@ -190,21 +190,8 @@ import heroImg from '../assets/mainpage/heroImg/elektroinstalace.jpg'; // Ujist�
         </div>
     </section>
 
-    <footer class="bg-brand-black py-8 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-600 text-sm">
-                &copy; <span id="copyright-year">2025</span> JDJ-craft s.r.o. | Všechna práva vyhrazena.
-            </p>
-        </div>
-    </footer>
+    <Footer />
 
-    <script is:inline>
-        // Copyright year
-        const yearEl = document.getElementById('copyright-year');
-        if (yearEl) {
-            yearEl.textContent = new Date().getFullYear().toString();
-        }
-    </script>
     <script>
         import { inject } from '@vercel/analytics';
         inject();
