@@ -6,13 +6,13 @@ import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
 
 import { Image } from 'astro:assets';
-import heroImg from '../assets/mainpage/heroImg/hruba-stavba.jpg'; // Ujistěte se, že cesta sedí
+import heroImg from '../assets/mainpage/heroImg/hruba-stavba.jpg'; 
 ---
 
 <Layout>
   <Fragment slot="head">
-    <meta name="description" content="Kompletní realizace hrubých staveb a domů na klíč. Od výkopových prací přes základovou desku až po střechu. JDJ-craft">
-    <title>Hrubá stavba | JDJ-craft</title>
+    <meta name="description" content="Kompletní realizace hrubých staveb, domů na klíč a výroba obytných kontejnerů. Od základů až po střechu. JDJ-craft">
+    <title>Hrubá stavba a Kontejnery | JDJ-craft</title>
   </Fragment>
 
     <Header />
@@ -103,7 +103,53 @@ import heroImg from '../assets/mainpage/heroImg/hruba-stavba.jpg'; // Ujistěte 
                 </div>
 
             </div>
-        </div>
+
+            <div class="mt-24 pt-24 border-t border-gray-100">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <div class="order-2 lg:order-1">
+                        <span class="text-brand-accent font-heading font-bold tracking-widest uppercase text-sm">Rychlé & Moderní bydlení</span>
+                        <h2 class="text-3xl md:text-4xl font-heading font-bold text-brand-black uppercase mt-2 mb-6">Obytné kontejnery na klíč</h2>
+                        <div class="w-20 h-1 bg-brand-black mb-8"></div>
+                        
+                        <div class="prose prose-lg text-gray-600 mb-8">
+                            <p>
+                                Hledáte rychlé, dostupné a přitom luxusní bydlení? Nebo potřebujete stylovou kancelář či chatu? 
+                                <strong>Vyrábíme obytné kontejnery a modulární dřevostavby na míru</strong>.
+                            </p>
+                            <p>
+                                Kontejner vám přivezeme kompletně hotový, usadíme a napojíme na sítě. Bydlíte v řádu týdnů.
+                            </p>
+                        </div>
+
+                        <ul class="space-y-3 list-none pl-0 mb-8">
+                            <li class="flex items-start gap-3"><span class="text-brand-black font-bold">✓</span> <span class="text-gray-700"><strong>Celoroční využití:</strong> Kvalitní zateplení pro komfort v zimě i v létě.</span></li>
+                            <li class="flex items-start gap-3"><span class="text-brand-black font-bold">✓</span> <span class="text-gray-700"><strong>Kompletní vybavení:</strong> Včetně sanity, elektroinstalace, podlah a topení.</span></li>
+                            <li class="flex items-start gap-3"><span class="text-brand-black font-bold">✓</span> <span class="text-gray-700"><strong>Bez stavebního povolení:</strong> Ve většině případů (do 25 m²) stačí ohláška.</span></li>
+                        </ul>
+
+                        <a href="#kontakt" class="inline-block bg-brand-black hover:bg-brand-accent text-white font-heading uppercase font-bold py-3 px-8 rounded-sm transition-colors shadow-lg">
+                            Mám zájem o kontejner
+                        </a>
+                    </div>
+
+                    <div class="order-1 lg:order-2 relative h-[400px] rounded-sm overflow-hidden shadow-2xl group">
+                         <Image 
+                            src={heroImg} 
+                            alt="Obytný kontejner" 
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-black/60 to-transparent flex items-end p-8">
+                            <div class="text-white">
+                                <p class="font-heading font-bold text-xl uppercase">Variabilní řešení</p>
+                                <p class="text-white/80 text-sm">Chaty • Kanceláře • Domy</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </div>
     </section>
 
     <section class="py-20 bg-brand-black border-t border-white/10">
@@ -123,7 +169,7 @@ import heroImg from '../assets/mainpage/heroImg/hruba-stavba.jpg'; // Ujistěte 
                     <span class="text-brand-black font-heading font-bold tracking-widest uppercase text-sm">Máte projekt?</span>
                     <h2 class="text-4xl md:text-5xl font-heading font-bold text-brand-black mt-2 uppercase mb-8">Poptat stavbu</h2>
                     <p class="text-gray-600 mb-10 text-lg">
-                        Plánujete stavbu rodinného domu? Pošlete nám projekt a my vám zdarma vypracujeme cenovou nabídku.
+                        Plánujete stavbu rodinného domu nebo sháníte kontejner? Pošlete nám svou představu a my vám zdarma vypracujeme cenovou nabídku.
                     </p>
 
                     <div class="space-y-6">
