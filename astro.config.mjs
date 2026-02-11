@@ -5,13 +5,18 @@ import keystatic from '@keystatic/astro';
 
 import react from '@astrojs/react';
 
+import vercel from '@astrojs/vercel';
+
 export default defineConfig({
   site: 'https://www.jdj-craft.cz',
+
   integrations: [
     tailwind(), 
     sitemap(),
     react(),
     keystatic()
   ],
-  output: 'static'
+
+  output: 'static',
+  adapter: vercel()
 });
