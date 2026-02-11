@@ -6,6 +6,8 @@ import keystatic from '@keystatic/astro';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 
+import markdoc from '@astrojs/markdoc';
+
 export default defineConfig({
   site: 'https://www.jdj-craft.cz',
   
@@ -14,9 +16,10 @@ export default defineConfig({
   adapter: vercel(),
   
   integrations: [
-    tailwind(), 
+    tailwind(),
     sitemap(),
     react(),
-    keystatic()
+    keystatic(),
+    markdoc(),
   ],
 });
